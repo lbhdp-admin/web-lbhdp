@@ -44,9 +44,11 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .hamburger{background:none;border:none;font-size:22px;color:var(--navy);cursor:pointer;padding:6px;}
 
 /* nav drawer */
-.drawer{display:none;background:#fff;border-bottom:1px solid var(--line);}
+.drawer{display:none;position:fixed;left:0;right:0;z-index:55;background:#fff;border-bottom:1px solid var(--line);max-height:calc(100vh - 80px);overflow-y:auto;box-shadow:0 14px 30px rgba(0,0,0,.18);}
 .drawer.open{display:block;}
 .drawer .wrap{padding:14px 20px 20px;}
+.drawer-backdrop{display:none;position:fixed;inset:0;background:rgba(10,15,25,.35);z-index:54;}
+.drawer-backdrop.open{display:block;}
 .nav-item{display:flex;align-items:center;gap:12px;padding:14px 10px;font-weight:700;color:var(--ink);border-radius:10px;font-size:15px;}
 .nav-item.active{background:#fdf3e0;color:var(--gold-dk);}
 .nav-item:hover{background:#f5f3ee;}
@@ -252,11 +254,12 @@ footer .brand-title{color:#fff;}
     </div>
     <div class="header-actions">
       <button class="btn-navy">Konsultasi</button>
-      <button class="hamburger" onclick="document.getElementById('drawer').classList.toggle('open')">☰</button>
+      <button class="hamburger" onclick="toggleDrawer()">☰</button>
     </div>
   </div>
 </header>
 
+<div class="drawer-backdrop" id="drawer-backdrop" onclick="closeDrawer()"></div>
 <nav class="drawer" id="drawer">
   <div class="wrap">
     <a class="nav-item active" href="#beranda">Beranda</a>
@@ -1095,8 +1098,27 @@ function filterRegulasi(){
   });
   document.getElementById('reg-count').innerText = `Menampilkan ${count} peraturan`;
 }
-document.querySelectorAll('.drawer .nav-item').forEach(a=>{
-  a.addEventListener('click',()=>document.getElementById('drawer').classList.remove('open'));
+function positionDrawer(){
+  const header = document.querySelector('header');
+  const top = header.getBoundingClientRect().bottom;
+  document.getElementById('drawer').style.top = top + 'px';
+  document.getElementById('drawer-backdrop').style.top = top + 'px';
+}
+function toggleDrawer(){
+  const d = document.getElementById('drawer');
+  const bd = document.getElementById('drawer-backdrop');
+  const willOpen = !d.classList.contains('open');
+  if(willOpen) positionDrawer();
+  d.classList.toggle('open', willOpen);
+  bd.classList.toggle('open', willOpen);
+}
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawer-backdrop').classList.remove('open');
+}
+window.addEventListener('resize', ()=>{ if(document.getElementById('drawer').classList.contains('open')) positionDrawer(); });
+document.querySelectorAll('.drawer .nav-item, .drawer .wa-btn').forEach(a=>{
+  a.addEventListener('click', closeDrawer);
 });
 </script>
 </body>
