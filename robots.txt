@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /tim/
+
+Sitemap: https://lbhdp.netlify.app/sitemap.xml

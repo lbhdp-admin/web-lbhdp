@@ -3,7 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>LBH Dakwah & Pendidikan - Advokasi & Perlindungan Hukum</title>
+<title>LBH Dakwah & Pendidikan - Bantuan Hukum Yayasan, Pesantren & Guru Swasta</title>
+<meta name="description" content="Lembaga Bantuan Hukum Dakwah & Pendidikan (LBH D&P) — pendampingan legalitas yayasan, sertifikasi wakaf, perlindungan hukum guru/ustaz, dan litigasi dakwah di seluruh Indonesia. Konsultasi gratis 24 jam.">
+<meta name="keywords" content="LBH, bantuan hukum yayasan, hukum pesantren, perlindungan guru ustaz, sertifikasi wakaf, konsultasi hukum yayasan gratis, advokat pendidikan islam">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0d1b2e">
+<link rel="canonical" href="https://lbhdp.netlify.app/">
+<link rel="icon" href="logo.png" type="image/png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="LBH Dakwah & Pendidikan">
+<meta property="og:title" content="LBH Dakwah & Pendidikan - Bantuan Hukum Yayasan, Pesantren & Guru Swasta">
+<meta property="og:description" content="Pendampingan legalitas yayasan, sertifikasi wakaf, perlindungan hukum guru/ustaz, dan litigasi dakwah di seluruh Indonesia. Konsultasi gratis 24 jam.">
+<meta property="og:url" content="https://lbhdp.netlify.app/">
+<meta property="og:image" content="https://lbhdp.netlify.app/logo.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LBH Dakwah & Pendidikan - Bantuan Hukum Yayasan, Pesantren & Guru Swasta">
+<meta name="twitter:description" content="Pendampingan legalitas yayasan, sertifikasi wakaf, perlindungan hukum guru/ustaz, dan litigasi dakwah di seluruh Indonesia.">
+<meta name="twitter:image" content="https://lbhdp.netlify.app/logo.png">
+
+<!-- Structured Data: schema.org LegalService -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Lembaga Bantuan Hukum Dakwah & Pendidikan (LBH D&P)",
+  "alternateName": "LBH Dakwah & Pendidikan",
+  "url": "https://lbhdp.netlify.app/",
+  "logo": "https://lbhdp.netlify.app/logo.png",
+  "image": "https://lbhdp.netlify.app/logo.png",
+  "telephone": "+62817-6910-840",
+  "email": "lbhdp@gmail.com",
+  "priceRange": "Gratis (Pro Bono)",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Jl. Jatinegara Barat No. 5-6, Bali Mester",
+    "addressLocality": "Jakarta Timur",
+    "addressRegion": "DKI Jakarta",
+    "addressCountry": "ID"
+  },
+  "areaServed": "ID",
+  "openingHours": "Mo-Fr 08:30-17:00",
+  "description": "Lembaga bantuan hukum yang berfokus pada pendampingan legalitas yayasan, perlindungan profesi guru dan ustaz, serta advokasi institusi dakwah dan pendidikan Islam di Indonesia."
+}
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
@@ -14,6 +62,7 @@
   font-family:'Georgia',serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
 body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   background:var(--cream); color:var(--ink); line-height:1.55;
@@ -27,7 +76,8 @@ a{color:inherit;text-decoration:none;}
 
 /* announcement bar */
 .topbar{background:var(--navy);color:var(--gold);padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:center;font-size:13px;font-weight:600;}
-.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px;}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px;animation:pulseDot 2s infinite;}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5);}70%{box-shadow:0 0 0 7px rgba(34,197,94,0);}100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}}
 .wa-btn{background:var(--green);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
 .topbar-inner{width:100%;background:var(--navy);text-align:center;padding-bottom:10px;}
 
@@ -54,7 +104,12 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .nav-item:hover{background:#f5f3ee;}
 
 /* hero */
-.hero{background:linear-gradient(180deg,var(--navy),#0a1524);color:#fff;padding:56px 20px 48px;position:relative;overflow:hidden;}
+.hero{background:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1px, transparent 0) 0 0/26px 26px,
+    linear-gradient(180deg,var(--navy),#0a1524);
+  color:#fff;padding:56px 20px 48px;position:relative;overflow:hidden;}
+.hero-watermark{position:absolute;right:-60px;bottom:-60px;width:420px;height:420px;opacity:.05;stroke:var(--gold);pointer-events:none;z-index:0;}
+.hero .wrap{position:relative;z-index:1;}
 .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(226,161,58,.12);border:1px solid rgba(226,161,58,.4);color:var(--gold);padding:7px 14px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:20px;}
 .hero h1{font-family:Georgia,serif;font-size:clamp(28px,6vw,44px);line-height:1.18;font-weight:700;max-width:680px;}
 .hero h1 .accent{color:var(--gold);}
@@ -87,7 +142,10 @@ h2.title{font-family:Georgia,serif;font-size:clamp(24px,4.4vw,32px);font-weight:
 .svc-link{color:var(--gold-dk);font-weight:700;font-size:14px;border-top:1px solid var(--line);padding-top:14px;display:block;}
 
 /* dark panel (steps / visi) */
-.panel-dark{background:linear-gradient(180deg,var(--navy),#0e1c30);color:#fff;border-radius:20px;padding:34px 22px;}
+.panel-dark{background:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0) 0 0/24px 24px,
+    linear-gradient(180deg,var(--navy),#0e1c30);
+  color:#fff;border-radius:20px;padding:34px 22px;position:relative;overflow:hidden;}
 .panel-dark .eyebrow{background:rgba(226,161,58,.12);color:var(--gold);}
 .panel-dark h2{color:#fff;}
 .panel-dark .lead{color:#b9c0cc;}
@@ -230,6 +288,26 @@ footer .brand-title{color:#fff;}
 .ls-item{color:#d7dbe3;font-weight:600;}
 .ls-sep{color:rgba(255,255,255,.25);}
 .ls-link{margin-left:auto;color:var(--gold);font-weight:700;text-decoration:none;}
+
+/* ===== Efek hover & animasi ringan (CSS murni, tanpa library) ===== */
+.btn-gold,.btn-outline,.btn-navy,.wa-btn,.submit-btn,.chip{transition:transform .15s ease, box-shadow .15s ease, filter .15s ease;}
+.btn-gold:hover,.wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.15);filter:brightness(1.04);}
+.btn-outline:hover{transform:translateY(-2px);background:rgba(255,255,255,.1);}
+.btn-navy:hover,.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.18);}
+.chip:hover{transform:translateY(-1px);}
+.svc-card,.g-card,.reg-card,.item-card{transition:transform .25s ease, box-shadow .25s ease;}
+.svc-card:hover,.g-card:hover,.reg-card:hover{transform:translateY(-5px);box-shadow:0 16px 32px rgba(13,27,46,.08);}
+.nav-item{transition:background .15s ease;}
+
+/* scroll-reveal: elemen fade-up saat masuk viewport (via JS IntersectionObserver) */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease;}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+  .reveal{opacity:1!important;transform:none!important;transition:none!important;}
+  .dot{animation:none;}
+  .svc-card:hover,.g-card:hover,.reg-card:hover,.btn-gold:hover,.wa-btn:hover,.btn-outline:hover,.btn-navy:hover,.submit-btn:hover{transform:none;}
+}
 </style>
 </head>
 <body>
@@ -276,6 +354,7 @@ footer .brand-title{color:#fff;}
 </nav>
 
 <section class="hero" id="beranda">
+  <svg class="hero-watermark" viewBox="0 0 24 24" fill="none" stroke-width="0.6" aria-hidden="true"><path d="M12 3v18M5 7l-3 6a4 4 0 0 0 8 0l-3-6zm14 0l-3 6a4 4 0 0 0 8 0l-3-6zM5 7h14M9 21h6"/></svg>
   <div class="wrap">
     <div class="badge"><span class="dot" style="background:var(--gold);"></span> Hotline Bebas Biaya 24 Jam: 0817-6910-840</div>
     <h1 class="serif">Mengawal Institusi <span class="accent">Pendidikan Islam</span> & Menjaga Martabat Pengajar</h1>
@@ -1098,6 +1177,24 @@ function filterRegulasi(){
   });
   document.getElementById('reg-count').innerText = `Menampilkan ${count} peraturan`;
 }
+/* ===== Scroll-reveal ringan: fade-up saat elemen masuk viewport ===== */
+(function(){
+  const targets = document.querySelectorAll('.svc-card,.g-card,.reg-card,.pillar,.step,.legal-card,.kontak-card,h2.title');
+  if(!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    return; // biarkan elemen tampil normal tanpa animasi
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  targets.forEach((el,i)=>{
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i % 4) * 60 + 'ms';
+    io.observe(el);
+  });
+})();
+
 function positionDrawer(){
   const header = document.querySelector('header');
   const top = header.getBoundingClientRect().bottom;
