@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LBH Dakwah & Pendidikan - Advokasi & Perlindungan Hukum</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --navy:#0d1b2e; --navy2:#12233b; --gold:#e2a13a; --gold-dk:#b97f1e;
+  --green:#149e6b; --green-dk:#0e7c54; --ink:#1c2434; --sub:#5b6472;
+  --line:#e7e4dc; --cream:#faf8f4; --card:#ffffff;
+  --radius:16px;
+  font-family:'Georgia',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  background:var(--cream); color:var(--ink); line-height:1.55;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:120px;}
+img{max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.serif{font-family:Georgia,'Times New Roman',serif;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+/* announcement bar */
+.topbar{background:var(--navy);color:var(--gold);padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:center;font-size:13px;font-weight:600;}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px;}
+.wa-btn{background:var(--green);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
+.topbar-inner{width:100%;background:var(--navy);text-align:center;padding-bottom:10px;}
+
+/* header */
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
+.header-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px;max-width:1080px;margin:0 auto;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-seal{width:52px;height:52px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;background:var(--navy);flex-shrink:0;}
+.brand-seal svg{width:26px;height:26px;stroke:var(--gold);}
+.brand-title{font-family:Georgia,serif;font-weight:700;font-size:17px;line-height:1.15;color:var(--navy);}
+.brand-sub{font-size:12px;color:var(--gold-dk);font-weight:600;margin-top:2px;}
+.header-actions{display:flex;align-items:center;gap:10px;}
+.btn-navy{background:var(--navy);color:#fff;padding:10px 18px;border-radius:9px;font-weight:700;font-size:14px;border:none;cursor:pointer;}
+.hamburger{background:none;border:none;font-size:22px;color:var(--navy);cursor:pointer;padding:6px;}
+
+/* nav drawer */
+.drawer{display:none;background:#fff;border-bottom:1px solid var(--line);}
+.drawer.open{display:block;}
+.drawer .wrap{padding:14px 20px 20px;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:14px 10px;font-weight:700;color:var(--ink);border-radius:10px;font-size:15px;}
+.nav-item.active{background:#fdf3e0;color:var(--gold-dk);}
+.nav-item:hover{background:#f5f3ee;}
+
+/* hero */
+.hero{background:linear-gradient(180deg,var(--navy),#0a1524);color:#fff;padding:56px 20px 48px;position:relative;overflow:hidden;}
+.hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(226,161,58,.12);border:1px solid rgba(226,161,58,.4);color:var(--gold);padding:7px 14px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:20px;}
+.hero h1{font-family:Georgia,serif;font-size:clamp(28px,6vw,44px);line-height:1.18;font-weight:700;max-width:680px;}
+.hero h1 .accent{color:var(--gold);}
+.hero p{margin-top:16px;max-width:560px;color:#c7ccd6;font-size:15.5px;}
+.hero-ctas{margin-top:26px;display:flex;flex-direction:column;gap:12px;max-width:340px;}
+.btn-gold{background:var(--gold);color:#1a1305;font-weight:700;padding:15px 20px;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px;border:none;cursor:pointer;}
+.btn-outline{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.25);color:#fff;font-weight:700;padding:14px 20px;border-radius:11px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14.5px;cursor:pointer;}
+.hero-trust{margin-top:28px;display:flex;flex-wrap:wrap;gap:16px 24px;font-size:13px;color:#c7ccd6;}
+.hero-trust span{display:flex;align-items:center;gap:7px;}
+.check{color:var(--gold);font-weight:900;}
+
+/* section shell */
+section.block{padding:52px 20px;}
+.eyebrow{display:inline-block;background:#fdf3e0;color:var(--gold-dk);font-weight:700;font-size:12px;letter-spacing:.03em;padding:6px 14px;border-radius:20px;margin-bottom:14px;}
+h2.title{font-family:Georgia,serif;font-size:clamp(24px,4.4vw,32px);font-weight:700;color:var(--navy);margin-bottom:10px;}
+.lead{color:var(--sub);font-size:15px;max-width:640px;margin-bottom:30px;}
+
+/* service cards */
+.services{display:grid;gap:20px;}
+.svc-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 1px 3px rgba(0,0,0,.03);}
+.svc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.svc-icon{width:44px;height:44px;border-radius:10px;background:#eef2f7;display:flex;align-items:center;justify-content:center;font-size:20px;}
+.svc-tag{background:#fdf3e0;color:var(--gold-dk);font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:20px;}
+.svc-cat{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--sub);text-transform:uppercase;margin-bottom:6px;}
+.svc-card h3{font-family:Georgia,serif;font-size:19px;color:var(--navy);margin-bottom:10px;}
+.svc-card p{color:var(--sub);font-size:14.5px;margin-bottom:14px;}
+.svc-list{list-style:none;margin-bottom:16px;}
+.svc-list li{display:flex;gap:9px;font-size:14px;color:var(--ink);padding:5px 0;}
+.svc-list li::before{content:"✓";color:var(--green);font-weight:900;}
+.svc-link{color:var(--gold-dk);font-weight:700;font-size:14px;border-top:1px solid var(--line);padding-top:14px;display:block;}
+
+/* dark panel (steps / visi) */
+.panel-dark{background:linear-gradient(180deg,var(--navy),#0e1c30);color:#fff;border-radius:20px;padding:34px 22px;}
+.panel-dark .eyebrow{background:rgba(226,161,58,.12);color:var(--gold);}
+.panel-dark h2{color:#fff;}
+.panel-dark .lead{color:#b9c0cc;}
+.steps{display:grid;gap:16px;margin-top:24px;}
+.step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;}
+.step-num{color:var(--gold);font-family:Georgia,serif;font-size:22px;font-weight:700;}
+.step h4{margin:10px 0 6px;font-size:16.5px;}
+.step p{color:#b9c0cc;font-size:14px;}
+
+/* profil */
+.profil-badge{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;text-align:center;margin-top:24px;}
+.profil-badge .brand-seal{margin:0 auto 14px;width:72px;height:72px;}
+.profil-badge .brand-seal svg{width:34px;height:34px;}
+.profil-badge h4{font-family:Georgia,serif;color:var(--navy);font-size:18px;}
+.profil-badge .sub{color:var(--gold-dk);font-size:13px;font-weight:600;margin:4px 0 12px;}
+.pillars{display:grid;gap:16px;margin-top:20px;}
+.pillar{border-left:4px solid var(--gold);background:#fff;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:18px 20px;}
+.pillar .tag{background:#fdf3e0;color:var(--gold-dk);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;float:right;}
+.pillar h5{font-family:Georgia,serif;color:var(--navy);font-size:16px;margin-bottom:6px;}
+.pillar p{color:var(--sub);font-size:13.5px;}
+
+/* FAQ */
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.faq-q{padding:16px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:700;font-size:14.5px;color:var(--ink);}
+.faq-cat{display:block;font-size:11px;font-weight:700;color:var(--gold-dk);background:#fdf3e0;padding:3px 10px;border-radius:20px;width:fit-content;margin:14px 0 8px 18px;}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;font-size:14px;color:var(--sub);}
+.faq-a-in{padding:0 18px 18px;}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-item.open .chev{transform:rotate(180deg);}
+.chev{transition:transform .2s;color:var(--gold-dk);}
+
+/* kontak */
+.kontak-grid{display:grid;gap:16px;}
+.kontak-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
+.kontak-icon{width:40px;height:40px;border-radius:10px;background:#eef2f7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+.kontak-label{font-size:11.5px;font-weight:700;color:var(--sub);letter-spacing:.03em;text-transform:uppercase;}
+.kontak-card b{display:block;font-size:16px;color:var(--navy);margin:3px 0;}
+.kontak-card span.muted{color:var(--sub);font-size:13.5px;}
+
+.form-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 20px;margin-top:30px;}
+.form-card h3{font-family:Georgia,serif;color:var(--navy);margin-bottom:6px;}
+.form-card p.lead{margin-bottom:20px;}
+label{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px;margin-top:16px;}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:12px 14px;font-size:14.5px;font-family:inherit;background:#faf9f6;}
+textarea{resize:vertical;min-height:90px;}
+.submit-btn{margin-top:20px;width:100%;background:var(--navy);color:#fff;font-weight:700;padding:14px;border-radius:10px;border:none;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;}
+
+/* footer */
+footer{background:linear-gradient(180deg,#0e1c30,#0a1522);color:#c7ccd6;padding:44px 20px 30px;}
+footer .brand-title{color:#fff;}
+.footer-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.footer-tagline{font-size:14px;color:#9aa2af;max-width:480px;margin-bottom:18px;}
+.values-row{background:rgba(226,161,58,.1);border:1px solid rgba(226,161,58,.25);color:var(--gold);font-weight:700;font-size:13px;padding:10px 16px;border-radius:10px;display:inline-block;margin-bottom:24px;}
+.footer-cols{display:grid;gap:28px;margin-top:10px;}
+.footer-col h6{color:#fff;font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;}
+.footer-col a{display:block;color:#9aa2af;font-size:14px;padding:6px 0;}
+.footer-cta{margin-top:8px;background:var(--gold);color:#1a1305;text-align:center;font-weight:700;padding:14px;border-radius:10px;display:block;}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);margin-top:30px;padding-top:20px;text-align:center;font-size:12.5px;color:#7b8391;}
+.footer-bottom a{color:var(--gold);font-weight:700;}
+
+.fab-wa{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:20px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25);font-size:26px;z-index:60;border:none;cursor:pointer;}
+
+@media(min-width:720px){
+  .services{grid-template-columns:1fr 1fr;}
+  .steps{grid-template-columns:1fr 1fr;}
+  .kontak-grid{grid-template-columns:1fr 1fr;}
+  .footer-cols{grid-template-columns:2fr 1fr 1fr;}
+  .pillars{grid-template-columns:1fr 1fr 1fr;}
+}.ticket-box{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 20px;margin-top:24px;}
+.ticket-search{display:flex;gap:10px;flex-wrap:wrap;}
+.ticket-search input{flex:1;min-width:180px;}
+.ticket-search button{background:var(--gold);color:#1a1305;font-weight:700;border:none;border-radius:9px;padding:12px 20px;font-size:14.5px;cursor:pointer;}
+.ticket-result{margin-top:22px;border-top:1px dashed var(--line);padding-top:20px;display:none;}
+.ticket-result.show{display:block;}
+.ticket-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:16px;}
+.ticket-id{font-family:Georgia,serif;font-weight:700;color:var(--navy);font-size:18px;}
+.status-pill{font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;}
+.status-proses{background:#fdf3e0;color:var(--gold-dk);}
+.status-selesai{background:#e5f6ee;color:var(--green-dk);}
+.status-antri{background:#eef2f7;color:var(--sub);}
+.tl{display:flex;flex-direction:column;gap:0;}
+.tl-item{display:flex;gap:14px;padding-bottom:20px;position:relative;}
+.tl-item:not(:last-child)::before{content:"";position:absolute;left:11px;top:26px;bottom:0;width:2px;background:var(--line);}
+.tl-dot{width:24px;height:24px;border-radius:50%;background:var(--line);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+.tl-item.done .tl-dot{background:var(--green);}
+.tl-item.current .tl-dot{background:var(--gold);}
+.tl-item h5{font-size:14.5px;color:var(--ink);margin-bottom:3px;}
+.tl-item p{font-size:13px;color:var(--sub);}
+.portal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+.pstat{background:var(--navy);color:#fff;border-radius:12px;padding:16px 10px;text-align:center;}
+.pstat b{display:block;font-family:Georgia,serif;font-size:22px;color:var(--gold);}
+.pstat span{font-size:11.5px;color:#c7ccd6;}
+
+/* filter chips */
+.chips{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 26px;}
+.chip{background:#fff;border:1px solid var(--line);color:var(--ink);font-size:13px;font-weight:700;padding:9px 16px;border-radius:30px;cursor:pointer;}
+.chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+/* gallery */
+.gallery{display:grid;gap:22px;}
+.g-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.g-cover{height:150px;display:flex;align-items:flex-start;padding:14px;color:#fff;font-size:11px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;position:relative;}
+.g-cover span{background:rgba(0,0,0,.35);padding:5px 12px;border-radius:20px;}
+.g-body{padding:18px 20px;}
+.g-meta{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--sub);margin-bottom:8px;flex-wrap:wrap;}
+.g-cat{background:#fdf3e0;color:var(--gold-dk);font-weight:700;padding:3px 10px;border-radius:20px;}
+.g-body h4{font-family:Georgia,serif;font-size:17px;color:var(--navy);margin-bottom:8px;}
+.g-body p{color:var(--sub);font-size:13.5px;margin-bottom:12px;}
+.g-foot{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--sub);border-top:1px solid var(--line);padding-top:12px;}
+.g-foot a{color:var(--gold-dk);font-weight:700;}
+
+/* regulasi */
+.reg-search{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:10px;align-items:center;margin-bottom:16px;}
+.reg-search input{border:none;background:transparent;flex:1;font-size:14.5px;}
+.reg-count{font-size:13px;color:var(--sub);margin-bottom:16px;}
+.reg-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px;}
+.reg-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.reg-year{font-size:12px;font-weight:700;color:var(--sub);}
+.reg-status{background:#e5f6ee;color:var(--green-dk);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;}
+.reg-cat{font-size:11.5px;font-weight:700;color:var(--gold-dk);letter-spacing:.03em;text-transform:uppercase;margin-bottom:4px;}
+.reg-card h4{font-family:Georgia,serif;font-size:17px;color:var(--navy);margin-bottom:6px;}
+.reg-card .desc{font-size:13.5px;color:var(--sub);margin-bottom:10px;}
+.reg-tags{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;}
+.reg-tag{background:#f1f3f6;color:var(--sub);font-size:11.5px;padding:4px 10px;border-radius:20px;}
+.reg-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:12px;font-size:12.5px;color:var(--sub);}
+.reg-foot a{color:var(--gold-dk);font-weight:700;}
+
+/* legalitas & trust */
+.legal-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--navy);border-radius:14px;padding:22px 20px;margin-top:20px;}
+.legal-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line);}
+.legal-row:last-child{border-bottom:none;}
+.legal-row .ic{font-size:18px;}
+.legal-row .lbl{font-size:12px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.03em;}
+.legal-row .val{font-size:14.5px;color:var(--ink);font-weight:600;margin-top:2px;}
+.trust-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+.trust-badge{display:flex;align-items:center;gap:7px;background:#fdf3e0;color:var(--gold-dk);font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:30px;border:1px solid #f0d9a8;}
+.map-embed{width:100%;height:260px;border:0;border-radius:14px;margin-top:14px;filter:grayscale(.15);}
+.legal-note{background:#f1f3f6;border-radius:10px;padding:12px 16px;font-size:12.5px;color:var(--sub);margin-top:14px;}
+.legal-strip{background:#0a1522;border-bottom:1px solid rgba(226,161,58,.2);}
+.legal-strip-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 20px;font-size:12.5px;}
+.ls-item{color:#d7dbe3;font-weight:600;}
+.ls-sep{color:rgba(255,255,255,.25);}
+.ls-link{margin-left:auto;color:var(--gold);font-weight:700;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="topbar-inner">
+  <div class="topbar"><span class="dot"></span>Hotline Konsultasi Hukum 24 Jam (Gratis)</div>
+  <a href="https://wa.me/6281769108" class="wrap" style="display:block;max-width:1080px;margin:0 auto;padding:0 20px;">
+    <button class="wa-btn" style="width:auto;">💬 Chat WhatsApp 24 Jam</button>
+  </a>
+</div>
+
+<header>
+  <div class="header-row">
+    <div class="brand">
+      <div class="brand-seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3v18M5 7l-3 6a4 4 0 0 0 8 0l-3-6zm14 0l-3 6a4 4 0 0 0 8 0l-3-6zM5 7h14M9 21h6"/></svg>
+      </div>
+      <div>
+        <div class="brand-title serif">LBH DAKWAH &<br>PENDIDIKAN</div>
+        <div class="brand-sub">Lembaga Bantuan Hukum (LBH D&P)</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-navy">Konsultasi</button>
+      <button class="hamburger" onclick="document.getElementById('drawer').classList.toggle('open')">☰</button>
+    </div>
+  </div>
+</header>
+
+<nav class="drawer" id="drawer">
+  <div class="wrap">
+    <a class="nav-item active" href="#beranda">🛡️ Beranda</a>
+    <a class="nav-item" href="#layanan">📄 Program Layanan</a>
+    <a class="nav-item" href="#profil">👥 Profil & Legalitas</a>
+    <a class="nav-item" href="#pengurus">🧑‍⚖️ Dewan Pembina & Direksi</a>
+    <a class="nav-item" href="#faq">💬 Tanya Jawab Hukum</a>
+    <a class="nav-item" href="#kontak">📞 Konsultasi & Kontak</a>
+    <a class="nav-item" href="#galeri">📷 Galeri Kegiatan</a>
+    <a class="nav-item" href="#regulasi">🔎 Cari Regulasi</a>
+    <a class="nav-item" href="#portal" style="display:flex;justify-content:space-between;">🎫 Lacak Tiket <span class="svc-tag">2 Tiket</span></a>
+    <a href="https://wa.me/6281769108" class="wa-btn" style="width:100%;margin-top:16px;justify-content:center;">💬 WhatsApp Hotline 24 Jam (0817-6910-840)</a>
+  </div>
+</nav>
+
+<section class="hero" id="beranda">
+  <div class="wrap">
+    <div class="badge"><span class="dot" style="background:var(--gold);"></span> Hotline Bebas Biaya 24 Jam: 0817-6910-840</div>
+    <h1 class="serif">Mengawal Institusi <span class="accent">Pendidikan Islam</span> & Menjaga Martabat Pengajar</h1>
+    <p>Lembaga Bantuan Hukum terdepan di Indonesia yang berfokus pada pendampingan legalitas yayasan, penyelesaian sengketa tanah wakaf, serta perlindungan hukum bagi para ustaz dan tenaga pendidik swasta.</p>
+    <div class="hero-ctas">
+      <a href="#kontak" class="btn-gold" style="text-decoration:none;">⚖️ Konsultasi Hukum Online →</a>
+    </div>
+    <div class="hero-trust">
+      <span><span class="check">✓</span> Dibina Purn. TNI & Polri</span>
+      <span><span class="check">✓</span> Advokat & Mediator Berizin</span>
+      <span><span class="check">✓</span> 100% Pro Bono Yayasan</span>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;">
+      <a href="#regulasi" style="color:#c7ccd6;font-size:13px;font-weight:600;text-decoration:underline;">🔍 Cari Peraturan (JDIH)</a>
+      <a href="#portal" style="color:#c7ccd6;font-size:13px;font-weight:600;text-decoration:underline;">🕓 Lacak Status Tiket</a>
+    </div>
+  </div>
+</section>
+
+<div class="legal-strip">
+  <div class="wrap legal-strip-in">
+    <span class="ls-item">🏛️ Terdaftar Resmi Kemenkumham RI</span>
+    <span class="ls-sep">•</span>
+    <span class="ls-item">📜 Akta Notaris Eva Junaida, S.H. No. 2/2019</span>
+    <span class="ls-sep">•</span>
+    <span class="ls-item">✅ SK AHU-0019046.AH.01.04.Tahun 2019</span>
+    <a href="#profil" class="ls-link">Lihat Detail Legalitas →</a>
+  </div>
+</div>
+<section class="block" id="layanan">
+  <div class="wrap">
+    <span class="eyebrow">LAYANAN SPESIALIS HUKUM DAKWAH & PENDIDIKAN</span>
+    <h2 class="title serif">Program & Bantuan Hukum Terpadu</h2>
+    <p class="lead">Dirancang khusus menjawab tantangan legalitas institusi pendidikan Islam swasta, keamanan aset wakaf, serta perlindungan profesi pendidik.</p>
+
+    <div class="services">
+      <div class="svc-card">
+        <div class="svc-top"><div class="svc-icon">📞</div><span class="svc-tag">GRATIS 24 JAM</span></div>
+        <div class="svc-cat">Bebas Biaya / Pro Bono Khusus</div>
+        <h3 class="serif">Hotline Konsultasi Hukum Yayasan 24 Jam</h3>
+        <p>Layanan respons cepat tanpa biaya untuk konsultasi legalitas, tata kelola, dan isu hukum mendesak pada yayasan maupun lembaga non-profit dakwah.</p>
+        <ul class="svc-list">
+          <li>Konsultasi hukum langsung via WhatsApp & portal tiket</li>
+          <li>Kajian awal legalitas dan risiko hukum yayasan</li>
+          <li>Saran tindakan hukum darurat dalam 1x24 jam</li>
+        </ul>
+        <a class="svc-link" href="#kontak">Ajukan Konsultasi Layanan Ini →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-top"><div class="svc-icon">🏛️</div><span class="svc-tag">TATA KELOLA PRIMA</span></div>
+        <div class="svc-cat">Legalitas & Kepatuhan Regulasi</div>
+        <h3 class="serif">Pendampingan Pendirian & Tata Kelola Yayasan</h3>
+        <p>Bimbingan penuh proses legalitas pendirian yayasan dakwah/pendidikan, dari akta notaris, pengesahan Kemenkumham, hingga sertifikasi aset wakaf.</p>
+        <ul class="svc-list">
+          <li>Penyusunan AD/ART dan pembagian kewenangan organ</li>
+          <li>Penyelarasan statuta yayasan dengan UU No. 16/2001 & 28/2004</li>
+          <li>Mitigasi sengketa internal antar pendiri atau pengurus</li>
+        </ul>
+        <a class="svc-link" href="#kontak">Ajukan Konsultasi Layanan Ini →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-top"><div class="svc-icon">⚖️</div><span class="svc-tag">ADVOKASI RESMI</span></div>
+        <div class="svc-cat">Pembelaan di Pengadilan (Litigasi)</div>
+        <h3 class="serif">Litigasi Perkara Dakwah & Pendidikan</h3>
+        <p>Pendampingan dan penanganan hukum di persidangan (pidana maupun perdata) khusus sengketa terkait kegiatan dakwah, persekolahan, dan pesantren.</p>
+        <ul class="svc-list">
+          <li>Pendampingan di kepolisian, kejaksaan, hingga persidangan</li>
+          <li>Penanganan sengketa perdata tanah wakaf & kepemilikan aset</li>
+          <li>Pembelaan terhadap kriminalisasi aktivitas dakwah dan institusi</li>
+        </ul>
+        <a class="svc-link" href="#kontak">Ajukan Konsultasi Layanan Ini →</a>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-top"><div class="svc-icon">🎓</div><span class="svc-tag">PERLINDUNGAN PROFESI</span></div>
+        <div class="svc-cat">Perlindungan Guru, Ustaz & Asatidz</div>
+        <h3 class="serif">Perlindungan & Bantuan Hukum Pengajar Islam Swasta</h3>
+        <p>Advokasi hak-hak hukum bagi para ustaz, guru madrasah, dan tenaga pendidik di sekolah swasta dan pondok pesantren agar mengajar aman dan bermartabat.</p>
+        <ul class="svc-list">
+          <li>Advokasi hak ketenagakerjaan dan perjanjian kerja (PKWT/PKWTT)</li>
+          <li>Perlindungan hukum atas tuduhan sepihak atau kriminalisasi guru</li>
+          <li>Edukasi perlindungan anak dan hukum pendidikan bagi pendidik</li>
+        </ul>
+        <a class="svc-link" href="#kontak">Ajukan Konsultasi Layanan Ini →</a>
+      </div>
+    </div>
+
+    <div class="panel-dark" style="margin-top:36px;">
+      <span class="eyebrow">SOP PELAYANAN KLIEN</span>
+      <h2 class="serif">4 Langkah Cepat Memperoleh Bantuan Hukum</h2>
+      <p class="lead">Transparan, terstruktur, dan terpantau dengan sistem nomor tiket konsultasi.</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><h4>Pengajuan & Formulir Online</h4><p>Isi kronologi kasus atau hubungi Hotline 24 Jam. Sistem langsung menerbitkan Nomor Tiket Konsultasi resmi.</p></div>
+        <div class="step"><div class="step-num">02</div><h4>Kajian Dokumen & Telaah Awal</h4><p>Advokat Divisi Litigasi atau Non-Litigasi menganalisis fakta hukum, dasar perundang-undangan, dan bukti dokumen.</p></div>
+        <div class="step"><div class="step-num">03</div><h4>Advice Hukum & Tindakan Mediasi</h4><p>Pemberian legal opinion, draft somasi/jawaban, mediasi musyawarah, atau surat rekomendasi perlindungan profesi.</p></div>
+        <div class="step"><div class="step-num">04</div><h4>Pendampingan Sidang Litigasi</h4><p>Bila diperlukan, tim advokat resmi bertindak sebagai kuasa hukum di pengadilan negeri atau agama.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block" id="profil" style="background:#fff;">
+  <div class="wrap">
+    <span class="eyebrow">PROFIL RESMI LEMBAGA</span>
+    <h2 class="title serif">Lembaga Bantuan Hukum <span style="color:var(--gold-dk);">Dakwah & Pendidikan</span> (LBH D&P)</h2>
+    <p class="lead">LBH D&P adalah lembaga bantuan hukum yang berfokus pada pendampingan, perlindungan, dan edukasi hukum di bidang dakwah serta pendidikan Islam. Kami berkomitmen menjaga keberlangsungan lembaga pendidikan, melindungi hak-hak tenaga pendidik, serta memastikan tata kelola yayasan berjalan sesuai aturan hukum yang berlaku di Indonesia.</p>
+    <ul class="svc-list" style="max-width:420px;">
+      <li>Pendampingan Yayasan & Pesantren</li>
+      <li>Advokasi Guru & Ustaz Swasta</li>
+      <li>Kepatuhan Hukum Berbasis Syariah & Positif</li>
+    </ul>
+
+    <div class="profil-badge">
+      <div class="brand-seal"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 3v18M5 7l-3 6a4 4 0 0 0 8 0l-3-6zm14 0l-3 6a4 4 0 0 0 8 0l-3-6zM5 7h14M9 21h6"/></svg></div>
+      <h4 class="serif">LBH DAKWAH & PENDIDIKAN</h4>
+      <div class="sub">Berdiri Mengawal Pendidikan Umat</div>
+      <div style="color:var(--sub);font-size:13px;">Kantor: Sisfo Office, Jatinegara Barat, Jakarta Timur</div>
+    </div>
+
+    <div class="legal-card">
+      <span class="eyebrow" style="margin-bottom:14px;">LEGALITAS & STATUS BADAN HUKUM</span>
+      <div class="legal-row">
+        <div class="ic">🏛️</div>
+        <div><div class="lbl">Nama Badan Hukum</div><div class="val">Yayasan Bantuan Hukum Dakwah & Pendidikan</div></div>
+      </div>
+      <div class="legal-row">
+        <div class="ic">📜</div>
+        <div><div class="lbl">Akta Pendirian Notaris</div><div class="val">Eva Junaida, S.H. — Akta No. 2, tanggal 18 Desember 2019</div></div>
+      </div>
+      <div class="legal-row">
+        <div class="ic">✅</div>
+        <div><div class="lbl">Nomor SK Pengesahan Kemenkumham RI (AHU)</div><div class="val">AHU-0019046.AH.01.04.Tahun 2019</div></div>
+      </div>
+      <div class="trust-badges">
+        <span class="trust-badge">✓ Terdaftar Resmi Kemenkumham RI</span>
+        <span class="trust-badge">✓ Berbadan Hukum Yayasan</span>
+        <span class="trust-badge">✓ Diawasi Sesuai UU No. 16/2001 jo. 28/2004</span>
+      </div>
+      <div class="legal-note">Salinan akta notaris dan SK pengesahan Kemenkumham dapat diverifikasi atau diminta melalui email resmi <b>lbhdp@gmail.com</b> untuk keperluan kerja sama, due diligence, atau audiensi hukum.</div>
+    </div>
+
+    <div class="panel-dark" style="margin-top:28px;">
+      <span class="eyebrow">VISI & MISI</span>
+      <h2 class="serif" style="font-size:22px;">Visi Lembaga</h2>
+      <p class="lead" style="font-style:italic;border-left:3px solid var(--gold);padding-left:14px;">"Menjadi pusat bantuan hukum yang terdepan, terpercaya, dan profesional dalam mengawal institusi pendidikan Islam, yayasan dakwah, serta para pengajar di Indonesia."</p>
+      <h2 class="serif" style="font-size:20px;margin-top:20px;">Misi Utama</h2>
+      <div class="steps" style="margin-top:16px;">
+        <div class="step"><div class="step-num">01</div><h4>Perlindungan Profesi</h4><p>Memberikan perlindungan dan kepastian hukum bagi ustaz, guru, dan tenaga pendidik swasta di seluruh Indonesia.</p></div>
+        <div class="step"><div class="step-num">02</div><h4>Penguatan Tata Kelola</h4><p>Membantu legalitas dan penyelesaian potensi sengketa hukum di lingkungan yayasan serta lembaga pendidikan Islam.</p></div>
+        <div class="step"><div class="step-num">03</div><h4>Advokasi Spesialis</h4><p>Mengadvokasi dan mendampingi perkara hukum yang berhubungan langsung dengan aktivitas dakwah dan persekolahan/pesantren.</p></div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <span class="eyebrow">NILAI-NILAI UTAMA</span>
+      <h2 class="title serif" style="font-size:22px;">Prinsip Moral & Integritas Kerja</h2>
+      <p class="lead">Setiap advokasi, telaah hukum, dan pendampingan perkara berpegang teguh pada tiga pilar utama:</p>
+      <div class="pillars">
+        <div class="pillar"><span class="tag">Pilar 01</span><h5 class="serif">Amanah</h5><p>Menjaga kepercayaan publik dan klien dengan profesionalisme serta integritas tinggi sesuai kode etik advokat dan moralitas Islam.</p></div>
+        <div class="pillar"><span class="tag">Pilar 02</span><h5 class="serif">Keadilan ('Adl)</h5><p>Memastikan para ustaz, pengajar, dan pengelola yayasan mendapatkan perlakuan dan hak hukum yang setara tanpa diskriminasi.</p></div>
+        <div class="pillar"><span class="tag">Pilar 03</span><h5 class="serif">Kemandirian</h5><p>Bebas dari intervensi pihak luar dalam mengadvokasi isu-isu dakwah, menjaga muruah pendidikan, dan membela kebenaran.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block" id="pengurus">
+  <div class="wrap">
+    <span class="eyebrow">KEPEMIMPINAN & PENGAYOM</span>
+    <h2 class="title serif">Dewan Pembina</h2>
+    <p class="lead">Dipimpin oleh para purnawirawan perwira tinggi TNI-Polri dan praktisi hukum senior berintegritas tinggi.</p>
+
+    <div class="services" id="pembina-list">
+      <div class="svc-card">
+        <div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;font-size:20px;">B</div>
+        <div class="svc-cat" style="margin-top:14px;">Dewan Pembina</div>
+        <h3 class="serif">Brigjen TNI (Purn) Otte Ruchiyat, S.H.</h3>
+        <p>Purnawirawan Perwira Tinggi Tentara Nasional Indonesia dengan kepakaran di bidang hukum militer dan ketahanan nasional. Berkomitmen mengayomi keberlangsungan institusi dakwah dan pendidikan Islam di Indonesia.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="svc-tag">S.H. (Sarjana Hukum)</span>
+          <span class="svc-tag">Purnawirawan Perwira Tinggi TNI-AD</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;font-size:20px;">L</div>
+        <div class="svc-cat" style="margin-top:14px;">Dewan Pembina</div>
+        <h3 class="serif">Laksda TNI (Purn) Djuhana Suwarna, S.I.P.</h3>
+        <p>Purnawirawan Laksamana Muda TNI dengan pengalaman kepemimpinan strategis maritim dan tata kelola organisasi kebangsaan, aktif memperkuat kedaulatan moral generasi penerus bangsa melalui institusi pendidikan.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="svc-tag">S.I.P. (Sarjana Ilmu Politik)</span>
+          <span class="svc-tag">Purnawirawan Laksamana Muda TNI-AL</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;font-size:20px;">W</div>
+        <div class="svc-cat" style="margin-top:14px;">Dewan Pembina</div>
+        <h3 class="serif">Widodo Mujiono, S.H.</h3>
+        <p>Praktisi dan tokoh hukum senior yang memiliki rekam jejak panjang dalam pembinaan kelembagaan yayasan sosial keagamaan dan advokasi kemaslahatan umat.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="svc-tag">S.H. (Sarjana Hukum)</span>
+          <span class="svc-tag">Pakar Hukum Kelembagaan Yayasan</span>
+        </div>
+      </div>
+
+      <div class="svc-card">
+        <div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;font-size:20px;">B</div>
+        <div class="svc-cat" style="margin-top:14px;">Dewan Pembina</div>
+        <h3 class="serif">Brigjen Pol. Drs. Giri Purwanto, S.H., S.I.P., M.M.</h3>
+        <p>Purnawirawan Perwira Tinggi Kepolisian Negara Republik Indonesia yang ahli dalam penegakan hukum berkeadilan, mediasi strategis, dan perlindungan ketertiban masyarakat di bidang pendidikan.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="svc-tag">Drs., S.H., S.I.P., M.M.</span>
+          <span class="svc-tag">Purnawirawan Perwira Tinggi POLRI</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;">
+      <span class="eyebrow">TIM MANAJEMEN & ADVOKAT PELAKSANA</span>
+      <h2 class="title serif">Direksi & Kepala Divisi</h2>
+      <p class="lead">Para advokat tersumpah, mediator bersertifikat, dan pakar hukum kepatuhan kerja di bidang pendidikan Islam.</p>
+
+      <div class="panel-dark" style="margin-bottom:20px;" id="direktur-box">
+        <span class="eyebrow" style="background:rgba(226,161,58,.15);">DIREKTUR LBH DAKWAH & PENDIDIKAN</span>
+        <h3 class="serif" style="font-size:20px;margin:10px 0 12px;">Abd Salim Bin Ahmad, S.H., S.Pd.I., M.M., M.H., C.Me., C.T.A., C.W.C.</h3>
+        <p class="lead">Advokat, praktisi hukum pendidikan Islam, dan mediator bersertifikat dengan sertifikasi keahlian advokasi ketenagakerjaan dan hukum yayasan. Memimpin operasional strategis dan pengawalan kasus LBH D&P di seluruh Indonesia.</p>
+        <div style="font-size:11.5px;font-weight:700;color:var(--gold);letter-spacing:.03em;margin-bottom:10px;">KUALIFIKASI & SERTIFIKASI:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">S.H., M.H. (Magister Hukum)</span>
+          <span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">S.Pd.I. (Sarjana Pendidikan Islam)</span>
+          <span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">M.M. (Magister Manajemen)</span>
+          <span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">C.Me. (Certified Mediator)</span>
+          <span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">C.T.A. (Certified Tax Advisor)</span>
+          <span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">C.W.C. (Certified Workplace Compliance)</span>
+        </div>
+      </div>
+
+      <div class="services" id="divisi-list">
+        <div class="svc-card">
+          <div class="svc-top"><div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;">M</div><span class="svc-tag">KEPALA DIVISI LITIGASI</span></div>
+          <h3 class="serif">Moh Jibril Abdallah, S.H., M.H., C.T.A.</h3>
+          <p>Advokat spesialis litigasi peradilan umum, pidana, dan perdata dengan penguasaan mendalam atas pembelaan tinggi persidangan dan kasus dakwah, sengketa lahan yayasan, dan sengketa ketenagakerjaan.</p>
+          <div style="font-size:11px;font-weight:700;color:var(--sub);letter-spacing:.03em;margin-bottom:8px;">KUALIFIKASI & SERTIFIKASI:</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="svc-tag">S.H., M.H. (Magister Hukum)</span>
+            <span class="svc-tag">C.T.A. (Certified Legal & Tax Auditor)</span>
+            <span class="svc-tag">Advokat Peradi</span>
+          </div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-top"><div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;">H</div><span class="svc-tag">KEPALA DIVISI NON-LITIGASI</span></div>
+          <h3 class="serif">Hijroh Abdu Robbi, S.H., C.T.A., C.W.C.</h3>
+          <p>Pakar hukum perancangan kontrak, audit kepatuhan yayasan, mediasi sengketa internal, dan restrukturisasi legalitas lembaga pendidikan.</p>
+          <div style="font-size:11px;font-weight:700;color:var(--sub);letter-spacing:.03em;margin-bottom:8px;">KUALIFIKASI & SERTIFIKASI:</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <span class="svc-tag">S.H. (Sarjana Hukum)</span>
+            <span class="svc-tag">C.T.A. (Certified Tax & Legal Auditor)</span>
+            <span class="svc-tag">C.W.C. (Certified Workplace Compliance)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block" id="faq">
+  <div class="wrap">
+    <span class="eyebrow">PUSAT TANYA JAWAB & EDUKASI HUKUM</span>
+    <h2 class="title serif">Pertanyaan Hukum Populer</h2>
+    <p class="lead">Kumpulan fatwa dan telaah hukum praktis seputar legalitas yayasan, perlindungan guru/ustaz, sengketa tanah wakaf, serta prosedur pendampingan hukum di LBH D&P.</p>
+
+    <div id="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Apakah yayasan dakwah lama yang didirikan sebelum tahun 2001 wajib melakukan penyesuaian anggaran dasar?</span><span class="chev">▾</span></div>
+        <div class="faq-a"><div class="faq-a-in">Ya, yayasan yang berdiri sebelum berlakunya UU Yayasan wajib melakukan penyesuaian anggaran dasar sesuai ketentuan perundang-undangan dan memberitahukannya kepada Menteri Hukum dan HAM. Yayasan yang tidak menyesuaikan statusnya kehilangan hak menyandang status badan hukum mandiri. (Pasal 71 UU No. 16/2001 jo. Pasal 39 PP No. 63/2008)</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Bolehkah Pembina, Pengurus, atau Pengawas Yayasan menerima gaji dari kekayaan yayasan?</span><span class="chev">▾</span></div>
+        <div class="faq-a"><div class="faq-a-in">Silakan hubungi hotline konsultasi untuk telaah lengkap sesuai kondisi lembaga Anda — jawaban bergantung pada susunan organ dan AD/ART yayasan yang berlaku.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Bolehkah pihak yayasan atau sekolah menahan ijazah asli guru/ustaz sebagai jaminan ikatan kerja?</span><span class="chev">▾</span></div>
+        <div class="faq-a"><div class="faq-a-in">Ini termasuk salah satu topik yang paling sering diadvokasi tim Divisi Perlindungan Profesi kami. Hubungi hotline untuk konsultasi kasus spesifik Anda secara gratis.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')"><span>Apakah layanan konsultasi hukum dan telaah dokumen di LBH D&P benar-benar bebas biaya (gratis)?</span><span class="chev">▾</span></div>
+        <div class="faq-a"><div class="faq-a-in">Ya. Konsultasi awal, kajian legalitas, dan saran tindakan hukum darurat untuk yayasan dan tenaga pendidik disediakan tanpa biaya (pro bono).</div></div>
+      </div>
+    </div>
+
+    <div class="panel-dark" style="margin-top:28px;text-align:center;">
+      <span class="eyebrow">PENDAMPINGAN SPESIALISASI PENDIDIKAN & DAKWAH</span>
+      <h2 class="serif" style="font-size:22px;">Belum Menemukan Jawaban untuk Kasus Khusus Lembaga Anda?</h2>
+      <p class="lead" style="margin:12px auto;">Setiap perkara hukum yayasan atau kasus guru memiliki kronologi dan bukti yang unik. Tim advokat LBH D&P siap menelaah dokumen Anda dan memberikan Legal Advice resmi tanpa biaya.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:360px;margin:20px auto 0;">
+        <button class="btn-gold">Ajukan Konsultasi Gratis 24 Jam →</button>
+        <a href="https://wa.me/6281769108" class="wa-btn" style="justify-content:center;">💬 Hotline WhatsApp Advokat</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block" id="kontak" style="background:#fff;">
+  <div class="wrap">
+    <span class="eyebrow">LAYANAN KOMUNIKASI & KEHADIRAN FISIK</span>
+    <h2 class="title serif">Kontak & Informasi Layanan</h2>
+    <p class="lead">Kunjungi kantor kami di Jakarta Timur atau hubungi sambungan langsung 24 jam bebas biaya untuk keadaan darurat hukum.</p>
+
+    <div class="kontak-grid">
+      <div class="kontak-card"><div class="kontak-icon">📍</div><div><div class="kontak-label">Alamat Kantor Pusat</div><b>Sisfo Office</b><span class="muted">Jl. Jatinegara Barat No. 5-6, Bali Mester, Jakarta Timur</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon">📞</div><div><div class="kontak-label">Hotline Resmi Kantor — Tersedia 24 Jam</div><b>0817-6910-840</b><span class="muted">Saluran resmi kantor (bukan nomor pribadi), bebas biaya untuk konsultasi awal yayasan, sekolah & ustaz, kapan saja</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon">✉️</div><div><div class="kontak-label">Surat Elektronik (Email Resmi)</div><b>lbhdp@gmail.com</b><span class="muted">Untuk berkas perkara, somasi, proposal kemitraan — dibalas pada jam kerja</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon">🕓</div><div><div class="kontak-label">Jam Operasional</div><b>Senin–Jumat, 08:30–17:00 WIB</b><span class="muted">Kunjungan tatap muka & balasan email mengikuti jam kerja kantor umum. Hotline telepon/WhatsApp tetap aktif 24 jam di luar jam tersebut.</span></div></div>
+    </div>
+
+    <iframe class="map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=Jl.+Jatinegara+Barat+No.5-6,+Bali+Mester,+Jakarta+Timur&output=embed"></iframe>
+    <div style="text-align:right;margin-top:8px;">
+      <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Jatinegara+Barat+No.5-6+Bali+Mester+Jakarta+Timur" target="_blank" style="font-size:13px;font-weight:700;color:var(--gold-dk);">Buka di Google Maps ↗</a>
+    </div>
+
+    <div class="form-card">
+      <h3 class="serif">Kirim Pesan Cepat ke Tim Advokat</h3>
+      <p class="lead">Pesan Anda akan langsung dihubungkan ke sistem hotline WhatsApp LBH D&P.</p>
+      <form onsubmit="event.preventDefault();sendWa();">
+        <label>Nama Lengkap *</label>
+        <input id="f-nama" placeholder="Nama Anda atau Lembaga" required>
+        <label>Nomor WhatsApp *</label>
+        <input id="f-wa" placeholder="Contoh: 08123456789" required>
+        <label>Topik Konsultasi</label>
+        <select id="f-topik">
+          <option>Hotline Konsultasi Hukum Yayasan (Gratis)</option>
+          <option>Tata Kelola & Wakaf Yayasan</option>
+          <option>Perlindungan Profesi Guru & Ustaz</option>
+          <option>Litigasi & Pembelaan Perkara</option>
+        </select>
+        <label>Isi Pertanyaan Singkat *</label>
+        <textarea id="f-isi" placeholder="Tuliskan pertanyaan atau kendala hukum yang sedang dialami..." required></textarea>
+        <button class="submit-btn" type="submit">📨 Kirim via WhatsApp Hotline</button>
+      </form>
+    </div>
+  </div>
+</section>
+<section class="block" id="galeri">
+  <div class="wrap">
+    <span class="eyebrow">DOKUMENTASI REKAM JEJAK LAPANGAN</span>
+    <h2 class="title serif">Galeri Kegiatan & Berita</h2>
+    <p class="lead">Dokumentasi pendampingan hukum, advokasi persidangan, workshop kepatuhan yayasan, serta sosialisasi perlindungan guru dan ustaz di berbagai daerah.</p>
+
+    <div class="chips" id="g-chips">
+      <span class="chip active" data-cat="Semua">Semua</span>
+      <span class="chip" data-cat="Advokasi & Litigasi">Advokasi & Litigasi</span>
+      <span class="chip" data-cat="Edukasi & Workshop">Edukasi & Workshop</span>
+      <span class="chip" data-cat="Pendampingan Yayasan">Pendampingan Yayasan</span>
+      <span class="chip" data-cat="Kunjungan Pesantren">Kunjungan Pesantren</span>
+    </div>
+
+    <div class="gallery" id="gallery-list">
+      <div class="g-card" data-cat="Pendampingan Yayasan">
+        <div class="g-cover" style="background:linear-gradient(135deg,#8a8f98,#4a4f58);"><span>Aset Wakaf</span></div>
+        <div class="g-body">
+          <div class="g-meta">📅 14 Februari 2026 <span class="g-cat">Pendampingan Yayasan</span></div>
+          <h4 class="serif">Konsultasi & Audiensi Legalitas Aset Wakaf Pesantren</h4>
+          <p>Pertemuan konsultasi intensif bersama 12 pimpinan yayasan pesantren membahas penyelesaian sertifikasi ikrar wakaf dan status tanah.</p>
+          <div class="g-foot"><span>📍 Sisfo Office & Pesantren Darul Hud...</span><a href="#kontak">Lihat Detail →</a></div>
+        </div>
+      </div>
+      <div class="g-card" data-cat="Edukasi & Workshop">
+        <div class="g-cover" style="background:linear-gradient(135deg,#6b4f3a,#3a2a1e);"><span>Perlindungan Profesi</span></div>
+        <div class="g-body">
+          <div class="g-meta">📅 28 Januari 2026 <span class="g-cat">Edukasi & Workshop</span></div>
+          <h4 class="serif">Workshop Nasional: Pencegahan Kriminalisasi Guru & Pendidik Islam</h4>
+          <p>Pelatihan hukum praktis dihadiri 80 kepala madrasah dan ustaz se-Jabodetabek mengenai SOP pendisiplinan santri yang aman secara hukum.</p>
+          <div class="g-foot"><span>📍 Aula Pertemuan Graha Sisfo, Jakart...</span><a href="#kontak">Lihat Detail →</a></div>
+        </div>
+      </div>
+      <div class="g-card" data-cat="Advokasi & Litigasi">
+        <div class="g-cover" style="background:linear-gradient(135deg,#3a4350,#161b22);"><span>Litigasi Peradilan</span></div>
+        <div class="g-body">
+          <div class="g-meta">📅 18 Desember 2025 <span class="g-cat">Advokasi & Litigasi</span></div>
+          <h4 class="serif">Pendampingan Sidang Litigasi Perkara Sengketa Kepengurusan Yayasan</h4>
+          <p>Advokat Divisi Litigasi LBH D&P mendampingi pengurus yayasan pendidikan dalam perkara gugatan keabsahan akta perubahan.</p>
+          <div class="g-foot"><span>📍 Pengadilan Negeri Jakarta Selatan</span><a href="#kontak">Lihat Detail →</a></div>
+        </div>
+      </div>
+      <div class="g-card" data-cat="Kunjungan Pesantren">
+        <div class="g-cover" style="background:linear-gradient(135deg,#2d4f3a,#12261a);"><span>Bantuan Hukum Pro Bono</span></div>
+        <div class="g-body">
+          <div class="g-meta">📅 05 November 2025 <span class="g-cat">Kunjungan Pesantren</span></div>
+          <h4 class="serif">Kunjungan Advokasi ke Pondok Pesantren di Pelosok Banten</h4>
+          <p>Tim LBH D&P memberikan layanan bantuan hukum pro bono jemput bola, mengedukasi kelengkapan izin operasional.</p>
+          <div class="g-foot"><span>📍 Pandeglang, Banten</span><a href="#kontak">Lihat Detail →</a></div>
+        </div>
+      </div>
+      <div class="g-card" data-cat="Edukasi & Workshop">
+        <div class="g-cover" style="background:linear-gradient(135deg,#b97f1e,#5c3f0f);"><span>MoU Kerjasama</span></div>
+        <div class="g-body">
+          <div class="g-meta">📅 15 Oktober 2025 <span class="g-cat">Edukasi & Workshop</span></div>
+          <h4 class="serif">Penandatanganan MoU Perlindungan Hukum dengan Forum Guru Swasta</h4>
+          <p>Kerjasama strategis penyediaan bantuan hukum gratis serta hotline 24 jam bagi lebih dari 250 ustaz dan tenaga kependidikan.</p>
+          <div class="g-foot"><span>📍 Jakarta</span><a href="#kontak">Lihat Detail →</a></div>
+        </div>
+      </div>
+      <div class="g-card" data-cat="Pendampingan Yayasan">
+        <div class="g-cover" style="background:linear-gradient(135deg,#1c2434,#05070a);"><span>Tata Kelola Prima</span></div>
+        <div class="g-body">
+          <div class="g-meta">📅 02 September 2025 <span class="g-cat">Pendampingan Yayasan</span></div>
+          <h4 class="serif">Audit Kepatuhan Hukum & Restrukturisasi Akta Yayasan Pendidikan</h4>
+          <p>Divisi Non-Litigasi melakukan telaah akta notaris, penyesuaian susunan pembina, dan audit kepatuhan perpajakan nirlaba.</p>
+          <div class="g-foot"><span>📍 Kantor Sisfo Office LBH D&P</span><a href="#kontak">Lihat Detail →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block" id="regulasi" style="background:#fff;">
+  <div class="wrap">
+    <span class="eyebrow">REPOSITORI JDIH SPESIALIS DAKWAH & PENDIDIKAN</span>
+    <h2 class="title serif">Pencarian Peraturan Perundang-undangan</h2>
+    <p class="lead">Koleksi undang-undang, peraturan pemerintah, dan peraturan menteri terkait yayasan, pendidikan Islam, sertifikasi wakaf, dan perlindungan guru.</p>
+
+    <div class="reg-search">
+      <span>🔍</span>
+      <input id="reg-search-input" placeholder="Cari undang-undang, nomor, topik (misal: 'Yayasan')" oninput="filterRegulasi()">
+    </div>
+    <div class="chips" id="reg-chips">
+      <span class="chip active" data-cat="Semua">Semua</span>
+      <span class="chip" data-cat="Yayasan & Ormas">Yayasan & Ormas</span>
+      <span class="chip" data-cat="Pesantren & Pendidikan Islam">Pesantren & Pendidikan Islam</span>
+      <span class="chip" data-cat="Guru & Tenaga Kependidikan">Guru & Tenaga Kependidikan</span>
+      <span class="chip" data-cat="Wakaf & Aset Keagamaan">Wakaf & Aset Keagamaan</span>
+    </div>
+    <div class="reg-count" id="reg-count">Menampilkan 6 peraturan</div>
+
+    <div id="reg-list">
+      <div class="reg-card" data-cat="Yayasan & Ormas" data-text="uu no 16 tahun 2001 jo uu no 28 tahun 2004 yayasan ad art organ pembina kemenkumham">
+        <div class="reg-top"><span class="reg-year">2001 / 2004</span><span class="reg-status">Berlaku</span></div>
+        <div class="reg-cat">Yayasan & Ormas</div>
+        <h4 class="serif">UU No. 16 Tahun 2001 jo. UU No. 28 Tahun 2004</h4>
+        <div class="desc">Undang-Undang Republik Indonesia tentang Yayasan — landasan hukum utama keberadaan yayasan di Indonesia yang menegaskan bahwa kekayaan yayasan terpisah dari kekayaan pribadi pendiri/pengurus.</div>
+        <div class="reg-tags"><span class="reg-tag">#Yayasan</span><span class="reg-tag">#AD/ART</span><span class="reg-tag">#OrganYayasan</span><span class="reg-tag">#Pembina</span><span class="reg-tag">#Kemenkumham</span></div>
+        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+      </div>
+      <div class="reg-card" data-cat="Pesantren & Pendidikan Islam" data-text="uu no 18 tahun 2019 pesantren kiai santri ijazah kemenag">
+        <div class="reg-top"><span class="reg-year">2019</span><span class="reg-status">Berlaku</span></div>
+        <div class="reg-cat">Pesantren & Pendidikan Islam</div>
+        <h4 class="serif">UU No. 18 Tahun 2019</h4>
+        <div class="desc">Undang-Undang Republik Indonesia tentang Pesantren — regulasi rekognisi negara terhadap pesantren sebagai lembaga pendidikan, dakwah, dan pemberdayaan masyarakat.</div>
+        <div class="reg-tags"><span class="reg-tag">#Pesantren</span><span class="reg-tag">#Kiai</span><span class="reg-tag">#Santri</span><span class="reg-tag">#IjazahSetara</span><span class="reg-tag">#Kemenag</span></div>
+        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+      </div>
+      <div class="reg-card" data-cat="Guru & Tenaga Kependidikan" data-text="uu no 14 tahun 2005 guru dosen madrasah sekolah swasta ketenagakerjaan">
+        <div class="reg-top"><span class="reg-year">2005</span><span class="reg-status">Berlaku</span></div>
+        <div class="reg-cat">Guru & Tenaga Kependidikan</div>
+        <h4 class="serif">UU No. 14 Tahun 2005</h4>
+        <div class="desc">Undang-Undang Republik Indonesia tentang Guru dan Dosen — mengatur hak perlindungan hukum, keselamatan kerja, dan kepastian profesi bagi pendidik, termasuk guru di madrasah dan sekolah swasta.</div>
+        <div class="reg-tags"><span class="reg-tag">#Guru</span><span class="reg-tag">#Ustaz</span><span class="reg-tag">#PerlindunganHukum</span><span class="reg-tag">#Madrasah</span></div>
+        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+      </div>
+      <div class="reg-card" data-cat="Wakaf & Aset Keagamaan" data-text="uu no 41 tahun 2004 wakaf tanah sekolah sengketa lahan bwi kemenag">
+        <div class="reg-top"><span class="reg-year">2004</span><span class="reg-status">Berlaku</span></div>
+        <div class="reg-cat">Wakaf & Aset Keagamaan</div>
+        <h4 class="serif">UU No. 41 Tahun 2004</h4>
+        <div class="desc">Undang-Undang Republik Indonesia tentang Wakaf — pedoman hukum perlindungan aset tanah dan harta wakaf yayasan dakwah agar tidak dapat disita, diperjualbelikan, atau dialihkan ke pihak ketiga.</div>
+        <div class="reg-tags"><span class="reg-tag">#Wakaf</span><span class="reg-tag">#TanahSekolah</span><span class="reg-tag">#SengketaLahan</span><span class="reg-tag">#BWI</span></div>
+        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+      </div>
+      <div class="reg-card" data-cat="Pesantren & Pendidikan Islam" data-text="pma no 30 tahun 2020 pesantren izin operasional nsp legalitas kemenag">
+        <div class="reg-top"><span class="reg-year">2020</span><span class="reg-status">Berlaku</span></div>
+        <div class="reg-cat">Pesantren & Pendidikan Islam</div>
+        <h4 class="serif">PMA No. 30 Tahun 2020</h4>
+        <div class="desc">Peraturan Menteri Agama tentang Pendirian dan Penyelenggaraan Pesantren — petunjuk teknis pendaftaran izin operasional pesantren (NSPP) dan standar sarana prasarana.</div>
+        <div class="reg-tags"><span class="reg-tag">#IzinOperasional</span><span class="reg-tag">#PMA</span><span class="reg-tag">#NSP</span><span class="reg-tag">#Legalitas</span></div>
+        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Kementerian Agama RI</span></div>
+      </div>
+      <div class="reg-card" data-cat="Guru & Tenaga Kependidikan" data-text="uu no 20 tahun 2003 sisdiknas sekolah swasta keagamaan">
+        <div class="reg-top"><span class="reg-year">2003</span><span class="reg-status">Berlaku</span></div>
+        <div class="reg-cat">Guru & Tenaga Kependidikan</div>
+        <h4 class="serif">UU No. 20 Tahun 2003</h4>
+        <div class="desc">Undang-Undang Republik Indonesia tentang Sistem Pendidikan Nasional — payung hukum sistem pendidikan nasional yang menjamin hak masyarakat mendirikan satuan pendidikan swasta berbasis keagamaan.</div>
+        <div class="reg-tags"><span class="reg-tag">#Sisdiknas</span><span class="reg-tag">#PendidikanIslam</span><span class="reg-tag">#SekolahSwasta</span></div>
+        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block" id="portal" style="background:#fff;">
+  <div class="wrap">
+    <span class="eyebrow">PORTAL ADVOKAT — LACAK STATUS TIKET</span>
+    <h2 class="title serif">Portal Advokat & Sistem Tiket Konsultasi</h2>
+    <p class="lead">Setiap pengajuan konsultasi otomatis mendapat Nomor Tiket resmi. Gunakan nomor tiket untuk memantau progres penanganan kasus Anda secara transparan oleh tim advokat.</p>
+
+    <div class="portal-stats">
+      <div class="pstat"><b>2</b><span>Tiket Aktif Anda</span></div>
+      <div class="pstat"><b>1x24 Jam</b><span>Rata-rata Respons</span></div>
+      <div class="pstat"><b>100%</b><span>Pro Bono Yayasan</span></div>
+    </div>
+
+    <div class="ticket-box">
+      <h3 class="serif" style="margin-bottom:6px;">Lacak Status Tiket</h3>
+      <p class="lead" style="margin-bottom:14px;">Masukkan nomor tiket yang Anda terima via WhatsApp/email setelah pengajuan.</p>
+      <div class="ticket-search">
+        <input id="ticket-input" placeholder="Contoh: LBHDP-2026-001">
+        <button onclick="lacakTiket()">🔍 Lacak Status</button>
+      </div>
+      <p style="font-size:12px;color:var(--sub);margin-top:8px;">Coba demo: LBHDP-2026-001 atau LBHDP-2026-002</p>
+
+      <div class="ticket-result" id="ticket-result"></div>
+    </div>
+  </div>
+</section>
+<section class="block" id="kebijakan" style="background:#fff;padding-top:0;">
+  <div class="wrap">
+    <div class="legal-card">
+      <span class="eyebrow">KEBIJAKAN PRIVASI</span>
+      <p style="font-size:13.5px;color:var(--sub);margin-top:10px;">Seluruh informasi, dokumen, dan kronologi kasus yang disampaikan klien melalui hotline, formulir, maupun email bersifat <b style="color:var(--ink);">rahasia</b> dan hanya diakses oleh advokat yang menangani perkara terkait, sesuai kode etik advokat dan prinsip kerahasiaan klien (<i>legal privilege</i>). Data pribadi tidak dibagikan kepada pihak ketiga tanpa persetujuan tertulis klien, kecuali diwajibkan oleh proses hukum yang berlaku.</p>
+    </div>
+    <div class="legal-card" style="border-left-color:var(--gold);">
+      <span class="eyebrow">DISCLAIMER HUKUM</span>
+      <p style="font-size:13.5px;color:var(--sub);margin-top:10px;">Konten pada situs ini — termasuk Tanya Jawab Hukum, artikel, dan repositori peraturan — bersifat <b style="color:var(--ink);">informasi umum</b> dan edukasi, bukan merupakan nasihat hukum resmi untuk kasus spesifik. Setiap perkara memiliki fakta dan bukti yang berbeda, sehingga hasil penanganan kasus tidak dapat dijamin atau disamaratakan. Untuk nasihat hukum yang mengikat, silakan ajukan konsultasi resmi melalui hotline atau formulir yang tersedia.</p>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="brand-seal"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5"><path d="M12 3v18M5 7l-3 6a4 4 0 0 0 8 0l-3-6zm14 0l-3 6a4 4 0 0 0 8 0l-3-6zM5 7h14M9 21h6"/></svg></div>
+      <div><div class="brand-title serif">LBH DAKWAH & PENDIDIKAN</div><div class="brand-sub" style="color:var(--gold);">Lembaga Bantuan Hukum (LBH D&P)</div></div>
+    </div>
+    <p class="footer-tagline">Lembaga Bantuan Hukum terdepan yang berfokus pada pendampingan legalitas, perlindungan profesi guru & ustaz, serta advokasi institusi dakwah dan pendidikan Islam di seluruh Indonesia.</p>
+    <div class="values-row">Amanah • Keadilan ('Adl) • Kemandirian</div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h6>Navigasi Cepat</h6>
+        <a href="#beranda">Beranda</a><a href="#profil">Profil & Pengurus</a><a href="#layanan">Program Layanan</a><a href="#faq">Tanya Jawab Hukum (FAQ)</a><a href="#kontak">Kontak</a>
+      </div>
+      <div class="footer-col">
+        <h6>Layanan Utama</h6>
+        <a href="#layanan">Hotline Yayasan 24 Jam (Gratis)</a><a href="#layanan">Pendampingan Pendirian Yayasan</a><a href="#layanan">Litigasi Perkara Dakwah</a><a href="#layanan">Perlindungan Hukum Pengajar</a>
+      </div>
+      <div class="footer-col">
+        <h6>Kantor & Hotline</h6>
+        <a>Sisfo Office, Jl. Jatinegara Barat No. 5-6</a><a>WhatsApp: 0817-6910-840 (24 Jam)</a><a>lbhdp@gmail.com</a>
+        <a href="#kontak" class="footer-cta">Ajukan Konsultasi Sekarang</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Lembaga Bantuan Hukum Dakwah & Pendidikan (LBH D&P). Seluruh hak cipta dilindungi undang-undang.<br>
+      Dikelola oleh <a href="https://desainindongmas.my.id" target="_blank">desainindongmas</a>
+      &nbsp;·&nbsp;<a href="#" onclick="alert('Portal internal advokat — hubungi admin sistem untuk akses akun.');return false;" style="color:#7b8391;text-decoration:underline;">Login Staf</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/6281769108" class="fab-wa">💬</a>
+
+<script>
+/* =====================================================================
+   KONFIGURASI SUPABASE
+   1. Buat project gratis di https://supabase.com
+   2. Buka SQL Editor, jalankan skrip di bagian bawah file ini (lihat
+      komentar SUPABASE_SETUP_SQL) untuk membuat tabel "tickets".
+   3. Ambil Project URL & anon public key dari Settings > API, lalu
+      tempel di dua baris di bawah ini.
+   4. Halaman ini HARUS di-host di domain sendiri (bukan di link
+      claude.ai artifact) supaya koneksi ke Supabase berjalan — pratinjau
+      di claude.ai memblokir permintaan jaringan ke domain luar.
+===================================================================== */
+const SUPABASE_URL = 'https://leawgpidtndbddsgdbel.supabase.co/';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxlYXdncGlkdG5kYmRkc2dkYmVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTExODY0OTgsImV4cCI6MjEwNjc2MjQ5OH0.5R0SVR41g582MWTxLiFWO_-DDrMVV1oL8ImUwCrrA6s';
+let supa = null;
+try{
+  if(window.supabase && !SUPABASE_URL.startsWith('GANTI')){
+    supa = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+}catch(e){ console.warn('Supabase belum dikonfigurasi:', e); }
+
+const TL_STEPS = [
+  {t:'Pengajuan & Formulir Online', d:'Nomor tiket konsultasi resmi diterbitkan.'},
+  {t:'Kajian Dokumen & Telaah Awal', d:'Advokat menganalisis fakta hukum dan bukti dokumen.'},
+  {t:'Advice Hukum & Tindakan Mediasi', d:'Legal opinion, draft somasi, atau rekomendasi diberikan.'},
+  {t:'Pendampingan Sidang Litigasi', d:'Tim advokat bertindak sebagai kuasa hukum bila diperlukan.'}
+];
+
+function renderTiketResult(data){
+  const box = document.getElementById('ticket-result');
+  const step = data.step || 1;
+  const statusClass = (data.status==='Selesai'||step===4)?'status-selesai':'status-proses';
+  const statusLabel = data.status || (step===4?'Selesai':'Dalam Proses');
+  let tlHtml='';
+  TL_STEPS.forEach((s,i)=>{
+    const n=i+1;
+    const cls = n<step ? 'done' : (n===step ? 'current':'');
+    const icon = n<step ? '✓' : n;
+    tlHtml += `<div class="tl-item ${cls}"><div class="tl-dot">${icon}</div><div><h5>${s.t}</h5><p>${s.d}</p></div></div>`;
+  });
+  box.className='ticket-result show';
+  box.innerHTML = `
+    <div class="ticket-head">
+      <div><div class="ticket-id">${data.ticket_number}</div><div style="font-size:13px;color:var(--sub);">${data.topik||'-'} • ${data.kategori||'-'}</div></div>
+      <span class="status-pill ${statusClass}">${statusLabel}</span>
+    </div>
+    <p style="font-size:13.5px;color:var(--sub);margin-bottom:16px;">Ditangani oleh: <b style="color:var(--ink);">${data.advokat || 'Belum ditugaskan'}</b></p>
+    <div class="tl">${tlHtml}</div>`;
+}
+
+async function lacakTiket(){
+  const id = document.getElementById('ticket-input').value.trim().toUpperCase();
+  const box = document.getElementById('ticket-result');
+  if(!id){ return; }
+  if(!supa){
+    box.className='ticket-result show';
+    box.innerHTML = `<p style="color:var(--sub);">Portal belum terhubung ke database (Supabase belum dikonfigurasi). Hubungi admin situs.</p>`;
+    return;
+  }
+  box.className='ticket-result show';
+  box.innerHTML = `<p style="color:var(--sub);">Mencari tiket...</p>`;
+  const { data, error } = await supa.from('tickets').select('*').eq('ticket_number', id).maybeSingle();
+  if(error || !data){
+    box.innerHTML = `<p style="color:var(--sub);">Nomor tiket tidak ditemukan. Pastikan nomor sesuai dengan yang Anda terima, atau hubungi hotline 0817-6910-840.</p>`;
+    return;
+  }
+  renderTiketResult(data);
+}
+
+function genTicketNumber(){
+  const year = new Date().getFullYear();
+  const rand = Math.floor(100 + Math.random()*900);
+  return `LBHDP-${year}-${rand}`;
+}
+
+async function sendWa(){
+  const nama=document.getElementById('f-nama').value;
+  const wa=document.getElementById('f-wa').value;
+  const topik=document.getElementById('f-topik').value;
+  const isi=document.getElementById('f-isi').value;
+  let ticketNumber = '';
+
+  if(supa){
+    ticketNumber = genTicketNumber();
+    const { error } = await supa.from('tickets').insert({
+      ticket_number: ticketNumber, nama, whatsapp: wa, topik,
+      kategori: topik, isi, step: 1, status: 'Dalam Proses'
+    });
+    if(error){ console.warn('Gagal menyimpan tiket:', error); ticketNumber=''; }
+  }
+
+  const tiketLine = ticketNumber ? `%0ANomor Tiket: ${ticketNumber}` : '';
+  const text=`Assalamu'alaikum, saya ${nama} (${wa}).%0ATopik: ${topik}%0APertanyaan: ${isi}${tiketLine}`;
+  window.open(`https://wa.me/6281769108?text=${text}`,'_blank');
+}
+
+/* =====================================================================
+SUPABASE_SETUP_SQL — jalankan di SQL Editor Supabase sekali saat setup:
+
+create table tickets (
+  id bigint generated always as identity primary key,
+  ticket_number text unique not null,
+  nama text not null,
+  whatsapp text not null,
+  topik text,
+  kategori text,
+  isi text,
+  step int default 1,
+  status text default 'Dalam Proses',
+  advokat text,
+  created_at timestamptz default now()
+);
+
+alter table tickets enable row level security;
+
+create policy "Publik bisa membuat tiket baru"
+on tickets for insert to anon with check (true);
+
+create policy "Publik bisa mencari tiket by nomor"
+on tickets for select to anon using (true);
+
+-- Izinkan admin (user login Supabase Auth) membaca & mengubah semua tiket
+create policy "Admin bisa membaca semua tiket"
+on tickets for select to authenticated using (true);
+
+create policy "Admin bisa update tiket"
+on tickets for update to authenticated using (true) with check (true);
+
+-- Tabel Artikel / Galeri Kegiatan
+create table articles (
+  id bigint generated always as identity primary key,
+  title text not null,
+  category text not null,
+  event_date date,
+  excerpt text,
+  location text,
+  color text default '#1c2434',
+  published boolean default true,
+  created_at timestamptz default now()
+);
+alter table articles enable row level security;
+create policy "Publik bisa membaca artikel terbit"
+on articles for select to anon using (published = true);
+create policy "Admin bisa kelola artikel"
+on articles for all to authenticated using (true) with check (true);
+
+-- Tabel Dewan Pembina & Direksi
+create table board_members (
+  id bigint generated always as identity primary key,
+  group_type text not null,        -- 'pembina' | 'direktur' | 'divisi'
+  name text not null,
+  role_title text,
+  bio text,
+  qualifications text,             -- pisahkan dengan koma
+  initial text,
+  sort_order int default 0,
+  created_at timestamptz default now()
+);
+alter table board_members enable row level security;
+create policy "Publik bisa membaca pengurus"
+on board_members for select to anon using (true);
+create policy "Admin bisa kelola pengurus"
+on board_members for all to authenticated using (true) with check (true);
+
+-- Catatan: akun admin dibuat manual lewat Supabase Dashboard >
+-- Authentication > Users > Add user (email + password). Jangan buat
+-- form sign-up publik di halaman manapun.
+===================================================================== */
+/* ===== Muat data dinamis dari Supabase (artikel kegiatan & pengurus) =====
+   Kalau Supabase belum dikonfigurasi atau datanya kosong, konten statis
+   bawaan di halaman ini tetap tampil sebagai fallback. */
+async function loadArticlesPublic(){
+  if(!supa) return;
+  const { data, error } = await supa.from('articles').select('*').eq('published', true).order('event_date', { ascending:false });
+  if(error || !data || !data.length) return;
+  const wrap = document.getElementById('gallery-list');
+  wrap.innerHTML = data.map(a=>`
+    <div class="g-card" data-cat="${a.category||''}">
+      <div class="g-cover" style="background:${a.color||'#1c2434'};"><span>${a.category||''}</span></div>
+      <div class="g-body">
+        <div class="g-meta">📅 ${a.event_date ? new Date(a.event_date).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : ''} <span class="g-cat">${a.category||''}</span></div>
+        <h4 class="serif">${a.title}</h4>
+        <p>${a.excerpt||''}</p>
+        <div class="g-foot"><span>📍 ${a.location||'-'}</span><a href="#kontak">Lihat Detail →</a></div>
+      </div>
+    </div>`).join('');
+}
+
+function boardCardHtml(m){
+  const tags = (m.qualifications||'').split(',').map(t=>t.trim()).filter(Boolean)
+    .map(t=>`<span class="svc-tag">${t}</span>`).join('');
+  return `<div class="svc-card">
+    <div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;font-size:20px;">${m.initial||(m.name||'?')[0]}</div>
+    <div class="svc-cat" style="margin-top:14px;">${m.role_title||''}</div>
+    <h3 class="serif">${m.name}</h3>
+    <p>${m.bio||''}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">${tags}</div>
+  </div>`;
+}
+
+async function loadBoardPublic(){
+  if(!supa) return;
+  const { data, error } = await supa.from('board_members').select('*').order('sort_order', { ascending:true });
+  if(error || !data || !data.length) return;
+  const pembina = data.filter(m=>m.group_type==='pembina');
+  const direktur = data.find(m=>m.group_type==='direktur');
+  const divisi = data.filter(m=>m.group_type==='divisi');
+
+  if(pembina.length) document.getElementById('pembina-list').innerHTML = pembina.map(boardCardHtml).join('');
+
+  if(direktur){
+    const tags = (direktur.qualifications||'').split(',').map(t=>t.trim()).filter(Boolean)
+      .map(t=>`<span class="svc-tag" style="background:rgba(255,255,255,.08);color:#fff;">${t}</span>`).join('');
+    document.getElementById('direktur-box').innerHTML = `
+      <span class="eyebrow" style="background:rgba(226,161,58,.15);">${direktur.role_title||'DIREKTUR LBH DAKWAH & PENDIDIKAN'}</span>
+      <h3 class="serif" style="font-size:20px;margin:10px 0 12px;">${direktur.name}</h3>
+      <p class="lead">${direktur.bio||''}</p>
+      <div style="font-size:11.5px;font-weight:700;color:var(--gold);letter-spacing:.03em;margin-bottom:10px;">KUALIFIKASI & SERTIFIKASI:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">${tags}</div>`;
+  }
+
+  if(divisi.length){
+    document.getElementById('divisi-list').innerHTML = divisi.map(m=>{
+      const tags = (m.qualifications||'').split(',').map(t=>t.trim()).filter(Boolean)
+        .map(t=>`<span class="svc-tag">${t}</span>`).join('');
+      return `<div class="svc-card">
+        <div class="svc-top"><div class="svc-icon" style="background:var(--navy);color:var(--gold);font-family:Georgia,serif;font-weight:700;">${m.initial||(m.name||'?')[0]}</div><span class="svc-tag">${m.role_title||''}</span></div>
+        <h3 class="serif">${m.name}</h3>
+        <p>${m.bio||''}</p>
+        <div style="font-size:11px;font-weight:700;color:var(--sub);letter-spacing:.03em;margin-bottom:8px;">KUALIFIKASI & SERTIFIKASI:</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">${tags}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+loadArticlesPublic();
+loadBoardPublic();
+
+document.getElementById('g-chips').addEventListener('click',(e)=>{
+  if(!e.target.classList.contains('chip')) return;
+  document.querySelectorAll('#g-chips .chip').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  const cat = e.target.dataset.cat;
+  document.querySelectorAll('#gallery-list .g-card').forEach(c=>{
+    c.style.display = (cat==='Semua' || c.dataset.cat===cat) ? '' : 'none';
+  });
+});
+
+document.getElementById('reg-chips').addEventListener('click',(e)=>{
+  if(!e.target.classList.contains('chip')) return;
+  document.querySelectorAll('#reg-chips .chip').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  filterRegulasi();
+});
+function filterRegulasi(){
+  const q = document.getElementById('reg-search-input').value.trim().toLowerCase();
+  const activeChip = document.querySelector('#reg-chips .chip.active');
+  const cat = activeChip ? activeChip.dataset.cat : 'Semua';
+  let count=0;
+  document.querySelectorAll('#reg-list .reg-card').forEach(c=>{
+    const matchCat = (cat==='Semua' || c.dataset.cat===cat);
+    const matchText = !q || c.dataset.text.includes(q) || c.innerText.toLowerCase().includes(q);
+    const show = matchCat && matchText;
+    c.style.display = show ? '' : 'none';
+    if(show) count++;
+  });
+  document.getElementById('reg-count').innerText = `Menampilkan ${count} peraturan`;
+}
+document.querySelectorAll('.drawer .nav-item').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('drawer').classList.remove('open'));
+});
+</script>
+</body>
+</html>
