@@ -72,18 +72,23 @@ html{scroll-padding-top:120px;}
 img{max-width:100%;}
 a{color:inherit;text-decoration:none;}
 .serif{font-family:Georgia,'Times New Roman',serif;}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px;}
 
 /* announcement bar */
-.topbar{background:var(--navy);color:var(--gold);padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;justify-content:center;font-size:13px;font-weight:600;}
+.topbar{color:var(--gold);display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;justify-content:center;}
+.topbar-flex{display:flex;flex-direction:column;align-items:center;gap:10px;padding:10px 16px;}
 .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;margin-right:6px;animation:pulseDot 2s infinite;}
 @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5);}70%{box-shadow:0 0 0 7px rgba(34,197,94,0);}100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}}
 .wa-btn{background:var(--green);color:#fff;padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;}
-.topbar-inner{width:100%;background:var(--navy);text-align:center;padding-bottom:10px;}
+.topbar-inner{width:100%;background:var(--navy);}
+@media(min-width:720px){
+  .topbar-flex{flex-direction:row;justify-content:space-between;}
+  .topbar{justify-content:flex-start;}
+}
 
 /* header */
 header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;}
-.header-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px;max-width:1080px;margin:0 auto;}
+.header-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;gap:12px;max-width:1080px;margin:0 auto;}
 .brand{display:flex;align-items:center;gap:12px;}
 .brand-seal{width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .brand-seal img{width:100%;height:100%;object-fit:contain;}
@@ -96,7 +101,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 /* nav drawer */
 .drawer{display:none;position:fixed;left:0;right:0;z-index:55;background:#fff;border-bottom:1px solid var(--line);max-height:calc(100vh - 80px);overflow-y:auto;box-shadow:0 14px 30px rgba(0,0,0,.18);}
 .drawer.open{display:block;}
-.drawer .wrap{padding:14px 20px 20px;}
+.drawer .wrap{padding:14px 16px 20px;}
 .drawer-backdrop{display:none;position:fixed;inset:0;background:rgba(10,15,25,.35);z-index:54;}
 .drawer-backdrop.open{display:block;}
 .nav-item{display:flex;align-items:center;gap:12px;padding:14px 10px;font-weight:700;color:var(--ink);border-radius:10px;font-size:15px;}
@@ -107,7 +112,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .hero{background:
     radial-gradient(circle at 1px 1px, rgba(255,255,255,.06) 1px, transparent 0) 0 0/26px 26px,
     linear-gradient(180deg,var(--navy),#0a1524);
-  color:#fff;padding:56px 20px 48px;position:relative;overflow:hidden;}
+  color:#fff;padding:56px 16px 48px;position:relative;overflow:hidden;}
 .hero-watermark{position:absolute;right:-60px;bottom:-60px;width:420px;height:420px;opacity:.05;stroke:var(--gold);pointer-events:none;z-index:0;}
 .hero .wrap{position:relative;z-index:1;}
 .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(226,161,58,.12);border:1px solid rgba(226,161,58,.4);color:var(--gold);padding:7px 14px;border-radius:30px;font-size:12.5px;font-weight:700;margin-bottom:20px;}
@@ -122,7 +127,7 @@ header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0
 .check{color:var(--gold);font-weight:900;}
 
 /* section shell */
-section.block{padding:52px 20px;}
+section.block{padding:52px 16px;}
 .eyebrow{display:inline-block;background:#fdf3e0;color:var(--gold-dk);font-weight:700;font-size:12px;letter-spacing:.03em;padding:6px 14px;border-radius:20px;margin-bottom:14px;}
 h2.title{font-family:Georgia,serif;font-size:clamp(24px,4.4vw,32px);font-weight:700;color:var(--navy);margin-bottom:10px;}
 .lead{color:var(--sub);font-size:15px;max-width:640px;margin-bottom:30px;}
@@ -180,6 +185,12 @@ h2.title{font-family:Georgia,serif;font-size:clamp(24px,4.4vw,32px);font-weight:
 .kontak-grid{display:grid;gap:16px;}
 .kontak-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start;}
 .kontak-icon{width:40px;height:40px;border-radius:10px;background:#eef2f7;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;}
+.kontak-icon svg{width:18px;height:18px;color:var(--navy);}
+.ic svg{width:18px;height:18px;}
+.ls-item svg{width:13px;height:13px;vertical-align:-2px;margin-right:2px;}
+.g-meta svg,.g-foot svg{width:13px;height:13px;vertical-align:-2px;margin-right:2px;}
+.reg-foot a svg{width:14px;height:14px;vertical-align:-2px;margin-right:3px;}
+.ticket-search button svg{width:15px;height:15px;vertical-align:-2px;margin-right:3px;}
 .kontak-label{font-size:11.5px;font-weight:700;color:var(--sub);letter-spacing:.03em;text-transform:uppercase;}
 .kontak-card b{display:block;font-size:16px;color:var(--navy);margin:3px 0;}
 .kontak-card span.muted{color:var(--sub);font-size:13.5px;}
@@ -201,11 +212,37 @@ footer .brand-title{color:#fff;}
 .footer-cols{display:grid;gap:28px;margin-top:10px;}
 .footer-col h6{color:#fff;font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;}
 .footer-col a{display:block;color:#9aa2af;font-size:14px;padding:6px 0;}
-.footer-cta{margin-top:8px;background:var(--gold);color:#1a1305;text-align:center;font-weight:700;padding:14px;border-radius:10px;display:block;}
+.footer-col a.footer-cta{margin-top:8px;background:var(--gold);color:#fff;text-align:center;font-weight:700;padding:14px;border-radius:10px;display:block;}
+.footer-icon-line{display:flex!important;align-items:flex-start;gap:9px;}
+.footer-icon-line svg{width:15px;height:15px;flex-shrink:0;margin-top:2px;color:var(--gold);}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.08);margin-top:30px;padding-top:20px;text-align:center;font-size:12.5px;color:#7b8391;}
 .footer-bottom a{color:var(--gold);font-weight:700;}
 
-.fab-wa{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:20px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25);font-size:26px;z-index:60;border:none;cursor:pointer;}
+.fab-wa{position:fixed;bottom:calc(72px + env(safe-area-inset-bottom,0px));right:20px;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25);font-size:26px;z-index:60;border:none;cursor:pointer;}
+
+/* ===== Popup promo ebook ===== */
+.ebook-backdrop{display:none;position:fixed;inset:0;background:rgba(10,15,25,.6);z-index:90;align-items:center;justify-content:center;padding:20px;}
+.ebook-backdrop.show{display:flex;}
+.ebook-modal{background:#fff;border-radius:18px;max-width:380px;width:100%;overflow:hidden;position:relative;box-shadow:0 20px 50px rgba(0,0,0,.3);animation:ebookPop .3s ease;}
+@keyframes ebookPop{from{opacity:0;transform:scale(.95) translateY(10px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.ebook-close{position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;border:none;font-size:16px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;}
+.ebook-modal img{width:100%;max-height:220px;object-fit:cover;object-position:top;}
+.ebook-modal-body{padding:18px 20px 20px;}
+.ebook-tag{display:inline-block;background:#fdf3e0;color:var(--gold-dk);font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;margin-bottom:10px;}
+.ebook-modal h4{font-family:Georgia,serif;font-size:17px;color:var(--navy);line-height:1.3;margin-bottom:6px;}
+.ebook-modal p{font-size:13px;color:var(--sub);margin-bottom:16px;}
+.ebook-cta{display:flex;gap:10px;}
+.ebook-cta a{flex:1;text-align:center;background:var(--gold);color:#1a1305;font-weight:700;padding:11px;border-radius:9px;font-size:13.5px;text-decoration:none;}
+.ebook-cta button{background:#fff;border:1px solid var(--line);color:var(--sub);font-weight:700;padding:11px 14px;border-radius:9px;font-size:13px;cursor:pointer;}
+
+/* ===== Banner strip promo ebook (alternatif, tampil di atas footer) ===== */
+.ebook-banner{background:linear-gradient(135deg,#1c2434,#0d1b2e);color:#fff;border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;margin:0 20px 30px;flex-wrap:wrap;}
+.ebook-banner img{width:64px;height:86px;object-fit:cover;border-radius:6px;flex-shrink:0;}
+.ebook-banner-text{flex:1;min-width:180px;}
+.ebook-banner-text .tag{color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.03em;}
+.ebook-banner-text h5{font-family:Georgia,serif;font-size:15.5px;margin:4px 0 3px;}
+.ebook-banner-text p{font-size:12.5px;color:#aab2bf;}
+.ebook-banner a{background:var(--gold);color:#1a1305;font-weight:700;padding:10px 18px;border-radius:9px;font-size:13px;text-decoration:none;white-space:nowrap;}
 
 @media(min-width:720px){
   .services{grid-template-columns:1fr 1fr;}
@@ -313,10 +350,10 @@ footer .brand-title{color:#fff;}
 <body>
 
 <div class="topbar-inner">
-  <div class="topbar"><span class="dot"></span>Hotline Konsultasi Hukum 24 Jam (Gratis)</div>
-  <a href="https://wa.me/6281769108" class="wrap" style="display:block;max-width:1080px;margin:0 auto;padding:0 20px;">
-    <button class="wa-btn" style="width:auto;"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.1-.472-.15-.671.15-.197.295-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.136-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.672-1.62-.922-2.22-.242-.579-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.148.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.872.118.571-.085 1.767-.722 2.016-1.42.248-.697.248-1.294.173-1.42-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 2.123.636 4.1 1.72 5.753L2 22l4.364-1.692a9.957 9.957 0 0 0 5.64 1.736c5.518 0 10.004-4.486 10.004-10.04C22.008 6.486 17.522 2 12.004 2zm0 18.167a8.11 8.11 0 0 1-4.153-1.14l-.297-.176-2.59 1.004.953-2.59-.193-.3a8.098 8.098 0 0 1-1.258-4.36c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/></svg> Chat WhatsApp 24 Jam</button>
-  </a>
+  <div class="wrap topbar-flex">
+    <div class="topbar"><span class="dot"></span>Hotline Konsultasi Hukum 24 Jam (Gratis)</div>
+    <a href="https://wa.me/6281769108" class="wa-btn" style="width:auto;text-decoration:none;"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.1-.472-.15-.671.15-.197.295-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.136-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.672-1.62-.922-2.22-.242-.579-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.148.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.872.118.571-.085 1.767-.722 2.016-1.42.248-.697.248-1.294.173-1.42-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 2.123.636 4.1 1.72 5.753L2 22l4.364-1.692a9.957 9.957 0 0 0 5.64 1.736c5.518 0 10.004-4.486 10.004-10.04C22.008 6.486 17.522 2 12.004 2zm0 18.167a8.11 8.11 0 0 1-4.153-1.14l-.297-.176-2.59 1.004.953-2.59-.193-.3a8.098 8.098 0 0 1-1.258-4.36c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/></svg> Chat WhatsApp 24 Jam</a>
+  </div>
 </div>
 
 <header>
@@ -327,7 +364,6 @@ footer .brand-title{color:#fff;}
       </div>
       <div>
         <div class="brand-title serif">LBH DAKWAH &<br>PENDIDIKAN</div>
-        <div class="brand-sub">Lembaga Bantuan Hukum (LBH D&P)</div>
       </div>
     </div>
     <div class="header-actions">
@@ -376,11 +412,11 @@ footer .brand-title{color:#fff;}
 
 <div class="legal-strip">
   <div class="wrap legal-strip-in">
-    <span class="ls-item">🏛️ Terdaftar Resmi Kemenkumham RI</span>
+    <span class="ls-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10M20 21V10M3 10l9-6 9 6M8 21v-7M12 21v-7M16 21v-7"/></svg> Terdaftar Resmi Kemenkumham RI</span>
     <span class="ls-sep">•</span>
-    <span class="ls-item">📜 Akta Notaris Eva Junaida, S.H. No. 2/2019</span>
+    <span class="ls-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg> Akta Notaris Eva Junaida, S.H. No. 2/2019</span>
     <span class="ls-sep">•</span>
-    <span class="ls-item">✅ SK AHU-0019046.AH.01.04.Tahun 2019</span>
+    <span class="ls-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.3 12.5 2.5 2.5 5-5.3"/></svg> SK AHU-0019046.AH.01.04.Tahun 2019</span>
     <a href="#profil" class="ls-link">Lihat Detail Legalitas →</a>
   </div>
 </div>
@@ -478,15 +514,15 @@ footer .brand-title{color:#fff;}
     <div class="legal-card">
       <span class="eyebrow" style="margin-bottom:14px;">LEGALITAS & STATUS BADAN HUKUM</span>
       <div class="legal-row">
-        <div class="ic">🏛️</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10M20 21V10M3 10l9-6 9 6M8 21v-7M12 21v-7M16 21v-7"/></svg></div>
         <div><div class="lbl">Nama Badan Hukum</div><div class="val">Yayasan Bantuan Hukum Dakwah & Pendidikan</div></div>
       </div>
       <div class="legal-row">
-        <div class="ic">📜</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg></div>
         <div><div class="lbl">Akta Pendirian Notaris</div><div class="val">Eva Junaida, S.H. — Akta No. 2, tanggal 18 Desember 2019</div></div>
       </div>
       <div class="legal-row">
-        <div class="ic">✅</div>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.3 12.5 2.5 2.5 5-5.3"/></svg></div>
         <div><div class="lbl">Nomor SK Pengesahan Kemenkumham RI (AHU)</div><div class="val">AHU-0019046.AH.01.04.Tahun 2019</div></div>
       </div>
       <div class="trust-badges">
@@ -660,10 +696,10 @@ footer .brand-title{color:#fff;}
     <p class="lead">Kunjungi kantor kami di Jakarta Timur atau hubungi sambungan langsung 24 jam bebas biaya untuk keadaan darurat hukum.</p>
 
     <div class="kontak-grid">
-      <div class="kontak-card"><div class="kontak-icon">📍</div><div><div class="kontak-label">Alamat Kantor Pusat</div><b>Sisfo Office</b><span class="muted">Jl. Jatinegara Barat No. 5-6, Bali Mester, Jakarta Timur</span></div></div>
-      <div class="kontak-card"><div class="kontak-icon">📞</div><div><div class="kontak-label">Hotline Resmi Kantor — Tersedia 24 Jam</div><b>0817-6910-840</b><span class="muted">Saluran resmi kantor (bukan nomor pribadi), bebas biaya untuk konsultasi awal yayasan, sekolah & ustaz, kapan saja</span></div></div>
-      <div class="kontak-card"><div class="kontak-icon">✉️</div><div><div class="kontak-label">Surat Elektronik (Email Resmi)</div><b>lbhdp@gmail.com</b><span class="muted">Untuk berkas perkara, somasi, proposal kemitraan — dibalas pada jam kerja</span></div></div>
-      <div class="kontak-card"><div class="kontak-icon">🕓</div><div><div class="kontak-label">Jam Operasional</div><b>Senin–Jumat, 08:30–17:00 WIB</b><span class="muted">Kunjungan tatap muka & balasan email mengikuti jam kerja kantor umum. Hotline telepon/WhatsApp tetap aktif 24 jam di luar jam tersebut.</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg></div><div><div class="kontak-label">Alamat Kantor Pusat</div><b>Sisfo Office</b><span class="muted">Jl. Jatinegara Barat No. 5-6, Bali Mester, Jakarta Timur</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 1h2a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.4 2.1L7.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div><div><div class="kontak-label">Hotline Resmi Kantor — Tersedia 24 Jam</div><b>0817-6910-840</b><span class="muted">Saluran resmi kantor (bukan nomor pribadi), bebas biaya untuk konsultasi awal yayasan, sekolah & ustaz, kapan saja</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><div><div class="kontak-label">Surat Elektronik (Email Resmi)</div><b>lbhdp@gmail.com</b><span class="muted">Untuk berkas perkara, somasi, proposal kemitraan — dibalas pada jam kerja</span></div></div>
+      <div class="kontak-card"><div class="kontak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div><div><div class="kontak-label">Jam Operasional</div><b>Senin–Jumat, 08:30–17:00 WIB</b><span class="muted">Kunjungan tatap muka & balasan email mengikuti jam kerja kantor umum. Hotline telepon/WhatsApp tetap aktif 24 jam di luar jam tersebut.</span></div></div>
     </div>
 
     <iframe class="map-embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
@@ -689,7 +725,7 @@ footer .brand-title{color:#fff;}
         </select>
         <label>Isi Pertanyaan Singkat *</label>
         <textarea id="f-isi" placeholder="Tuliskan pertanyaan atau kendala hukum yang sedang dialami..." required></textarea>
-        <button class="submit-btn" type="submit">📨 Kirim via WhatsApp Hotline</button>
+        <button class="submit-btn" type="submit"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" style="flex-shrink:0;"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.1-.472-.15-.671.15-.197.295-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.136-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.672-1.62-.922-2.22-.242-.579-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.148.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.872.118.571-.085 1.767-.722 2.016-1.42.248-.697.248-1.294.173-1.42-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 2.123.636 4.1 1.72 5.753L2 22l4.364-1.692a9.957 9.957 0 0 0 5.64 1.736c5.518 0 10.004-4.486 10.004-10.04C22.008 6.486 17.522 2 12.004 2zm0 18.167a8.11 8.11 0 0 1-4.153-1.14l-.297-.176-2.59 1.004.953-2.59-.193-.3a8.098 8.098 0 0 1-1.258-4.36c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/></svg> Kirim via WhatsApp Hotline</button>
       </form>
     </div>
   </div>
@@ -712,55 +748,55 @@ footer .brand-title{color:#fff;}
       <div class="g-card" data-cat="Pendampingan Yayasan">
         <div class="g-cover" style="background:linear-gradient(135deg,#8a8f98,#4a4f58);"><span>Aset Wakaf</span></div>
         <div class="g-body">
-          <div class="g-meta">📅 14 Februari 2026 <span class="g-cat">Pendampingan Yayasan</span></div>
+          <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> 14 Februari 2026 <span class="g-cat">Pendampingan Yayasan</span></div>
           <h4 class="serif">Konsultasi & Audiensi Legalitas Aset Wakaf Pesantren</h4>
           <p>Pertemuan konsultasi intensif bersama 12 pimpinan yayasan pesantren membahas penyelesaian sertifikasi ikrar wakaf dan status tanah.</p>
-          <div class="g-foot"><span>📍 Sisfo Office & Pesantren Darul Hud...</span><a href="#kontak">Lihat Detail →</a></div>
+          <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Sisfo Office & Pesantren Darul Hud...</span><a href="#kontak">Lihat Detail →</a></div>
         </div>
       </div>
       <div class="g-card" data-cat="Edukasi & Workshop">
         <div class="g-cover" style="background:linear-gradient(135deg,#6b4f3a,#3a2a1e);"><span>Perlindungan Profesi</span></div>
         <div class="g-body">
-          <div class="g-meta">📅 28 Januari 2026 <span class="g-cat">Edukasi & Workshop</span></div>
+          <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> 28 Januari 2026 <span class="g-cat">Edukasi & Workshop</span></div>
           <h4 class="serif">Workshop Nasional: Pencegahan Kriminalisasi Guru & Pendidik Islam</h4>
           <p>Pelatihan hukum praktis dihadiri 80 kepala madrasah dan ustaz se-Jabodetabek mengenai SOP pendisiplinan santri yang aman secara hukum.</p>
-          <div class="g-foot"><span>📍 Aula Pertemuan Graha Sisfo, Jakart...</span><a href="#kontak">Lihat Detail →</a></div>
+          <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Aula Pertemuan Graha Sisfo, Jakart...</span><a href="#kontak">Lihat Detail →</a></div>
         </div>
       </div>
       <div class="g-card" data-cat="Advokasi & Litigasi">
         <div class="g-cover" style="background:linear-gradient(135deg,#3a4350,#161b22);"><span>Litigasi Peradilan</span></div>
         <div class="g-body">
-          <div class="g-meta">📅 18 Desember 2025 <span class="g-cat">Advokasi & Litigasi</span></div>
+          <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> 18 Desember 2025 <span class="g-cat">Advokasi & Litigasi</span></div>
           <h4 class="serif">Pendampingan Sidang Litigasi Perkara Sengketa Kepengurusan Yayasan</h4>
           <p>Advokat Divisi Litigasi LBH D&P mendampingi pengurus yayasan pendidikan dalam perkara gugatan keabsahan akta perubahan.</p>
-          <div class="g-foot"><span>📍 Pengadilan Negeri Jakarta Selatan</span><a href="#kontak">Lihat Detail →</a></div>
+          <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Pengadilan Negeri Jakarta Selatan</span><a href="#kontak">Lihat Detail →</a></div>
         </div>
       </div>
       <div class="g-card" data-cat="Kunjungan Pesantren">
         <div class="g-cover" style="background:linear-gradient(135deg,#2d4f3a,#12261a);"><span>Bantuan Hukum Pro Bono</span></div>
         <div class="g-body">
-          <div class="g-meta">📅 05 November 2025 <span class="g-cat">Kunjungan Pesantren</span></div>
+          <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> 05 November 2025 <span class="g-cat">Kunjungan Pesantren</span></div>
           <h4 class="serif">Kunjungan Advokasi ke Pondok Pesantren di Pelosok Banten</h4>
           <p>Tim LBH D&P memberikan layanan bantuan hukum pro bono jemput bola, mengedukasi kelengkapan izin operasional.</p>
-          <div class="g-foot"><span>📍 Pandeglang, Banten</span><a href="#kontak">Lihat Detail →</a></div>
+          <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Pandeglang, Banten</span><a href="#kontak">Lihat Detail →</a></div>
         </div>
       </div>
       <div class="g-card" data-cat="Edukasi & Workshop">
         <div class="g-cover" style="background:linear-gradient(135deg,#b97f1e,#5c3f0f);"><span>MoU Kerjasama</span></div>
         <div class="g-body">
-          <div class="g-meta">📅 15 Oktober 2025 <span class="g-cat">Edukasi & Workshop</span></div>
+          <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> 15 Oktober 2025 <span class="g-cat">Edukasi & Workshop</span></div>
           <h4 class="serif">Penandatanganan MoU Perlindungan Hukum dengan Forum Guru Swasta</h4>
           <p>Kerjasama strategis penyediaan bantuan hukum gratis serta hotline 24 jam bagi lebih dari 250 ustaz dan tenaga kependidikan.</p>
-          <div class="g-foot"><span>📍 Jakarta</span><a href="#kontak">Lihat Detail →</a></div>
+          <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Jakarta</span><a href="#kontak">Lihat Detail →</a></div>
         </div>
       </div>
       <div class="g-card" data-cat="Pendampingan Yayasan">
         <div class="g-cover" style="background:linear-gradient(135deg,#1c2434,#05070a);"><span>Tata Kelola Prima</span></div>
         <div class="g-body">
-          <div class="g-meta">📅 02 September 2025 <span class="g-cat">Pendampingan Yayasan</span></div>
+          <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> 02 September 2025 <span class="g-cat">Pendampingan Yayasan</span></div>
           <h4 class="serif">Audit Kepatuhan Hukum & Restrukturisasi Akta Yayasan Pendidikan</h4>
           <p>Divisi Non-Litigasi melakukan telaah akta notaris, penyesuaian susunan pembina, dan audit kepatuhan perpajakan nirlaba.</p>
-          <div class="g-foot"><span>📍 Kantor Sisfo Office LBH D&P</span><a href="#kontak">Lihat Detail →</a></div>
+          <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Kantor Sisfo Office LBH D&P</span><a href="#kontak">Lihat Detail →</a></div>
         </div>
       </div>
     </div>
@@ -773,7 +809,7 @@ footer .brand-title{color:#fff;}
     <p class="lead">Koleksi undang-undang, peraturan pemerintah, dan peraturan menteri terkait yayasan, pendidikan Islam, sertifikasi wakaf, dan perlindungan guru.</p>
 
     <div class="reg-search">
-      <span>🔍</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="17" height="17"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
       <input id="reg-search-input" placeholder="Cari undang-undang, nomor, topik (misal: 'Yayasan')" oninput="filterRegulasi()">
     </div>
     <div class="chips" id="reg-chips">
@@ -792,7 +828,7 @@ footer .brand-title{color:#fff;}
         <h4 class="serif">UU No. 16 Tahun 2001 jo. UU No. 28 Tahun 2004</h4>
         <div class="desc">Undang-Undang Republik Indonesia tentang Yayasan — landasan hukum utama keberadaan yayasan di Indonesia yang menegaskan bahwa kekayaan yayasan terpisah dari kekayaan pribadi pendiri/pengurus.</div>
         <div class="reg-tags"><span class="reg-tag">#Yayasan</span><span class="reg-tag">#AD/ART</span><span class="reg-tag">#OrganYayasan</span><span class="reg-tag">#Pembina</span><span class="reg-tag">#Kemenkumham</span></div>
-        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+        <div class="reg-foot"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
       </div>
       <div class="reg-card" data-cat="Pesantren & Pendidikan Islam" data-text="uu no 18 tahun 2019 pesantren kiai santri ijazah kemenag">
         <div class="reg-top"><span class="reg-year">2019</span><span class="reg-status">Berlaku</span></div>
@@ -800,7 +836,7 @@ footer .brand-title{color:#fff;}
         <h4 class="serif">UU No. 18 Tahun 2019</h4>
         <div class="desc">Undang-Undang Republik Indonesia tentang Pesantren — regulasi rekognisi negara terhadap pesantren sebagai lembaga pendidikan, dakwah, dan pemberdayaan masyarakat.</div>
         <div class="reg-tags"><span class="reg-tag">#Pesantren</span><span class="reg-tag">#Kiai</span><span class="reg-tag">#Santri</span><span class="reg-tag">#IjazahSetara</span><span class="reg-tag">#Kemenag</span></div>
-        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+        <div class="reg-foot"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
       </div>
       <div class="reg-card" data-cat="Guru & Tenaga Kependidikan" data-text="uu no 14 tahun 2005 guru dosen madrasah sekolah swasta ketenagakerjaan">
         <div class="reg-top"><span class="reg-year">2005</span><span class="reg-status">Berlaku</span></div>
@@ -808,7 +844,7 @@ footer .brand-title{color:#fff;}
         <h4 class="serif">UU No. 14 Tahun 2005</h4>
         <div class="desc">Undang-Undang Republik Indonesia tentang Guru dan Dosen — mengatur hak perlindungan hukum, keselamatan kerja, dan kepastian profesi bagi pendidik, termasuk guru di madrasah dan sekolah swasta.</div>
         <div class="reg-tags"><span class="reg-tag">#Guru</span><span class="reg-tag">#Ustaz</span><span class="reg-tag">#PerlindunganHukum</span><span class="reg-tag">#Madrasah</span></div>
-        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+        <div class="reg-foot"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
       </div>
       <div class="reg-card" data-cat="Wakaf & Aset Keagamaan" data-text="uu no 41 tahun 2004 wakaf tanah sekolah sengketa lahan bwi kemenag">
         <div class="reg-top"><span class="reg-year">2004</span><span class="reg-status">Berlaku</span></div>
@@ -816,7 +852,7 @@ footer .brand-title{color:#fff;}
         <h4 class="serif">UU No. 41 Tahun 2004</h4>
         <div class="desc">Undang-Undang Republik Indonesia tentang Wakaf — pedoman hukum perlindungan aset tanah dan harta wakaf yayasan dakwah agar tidak dapat disita, diperjualbelikan, atau dialihkan ke pihak ketiga.</div>
         <div class="reg-tags"><span class="reg-tag">#Wakaf</span><span class="reg-tag">#TanahSekolah</span><span class="reg-tag">#SengketaLahan</span><span class="reg-tag">#BWI</span></div>
-        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+        <div class="reg-foot"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
       </div>
       <div class="reg-card" data-cat="Pesantren & Pendidikan Islam" data-text="pma no 30 tahun 2020 pesantren izin operasional nsp legalitas kemenag">
         <div class="reg-top"><span class="reg-year">2020</span><span class="reg-status">Berlaku</span></div>
@@ -824,7 +860,7 @@ footer .brand-title{color:#fff;}
         <h4 class="serif">PMA No. 30 Tahun 2020</h4>
         <div class="desc">Peraturan Menteri Agama tentang Pendirian dan Penyelenggaraan Pesantren — petunjuk teknis pendaftaran izin operasional pesantren (NSPP) dan standar sarana prasarana.</div>
         <div class="reg-tags"><span class="reg-tag">#IzinOperasional</span><span class="reg-tag">#PMA</span><span class="reg-tag">#NSP</span><span class="reg-tag">#Legalitas</span></div>
-        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Kementerian Agama RI</span></div>
+        <div class="reg-foot"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Baca Pasal Krusial</a><span>Kementerian Agama RI</span></div>
       </div>
       <div class="reg-card" data-cat="Guru & Tenaga Kependidikan" data-text="uu no 20 tahun 2003 sisdiknas sekolah swasta keagamaan">
         <div class="reg-top"><span class="reg-year">2003</span><span class="reg-status">Berlaku</span></div>
@@ -832,7 +868,7 @@ footer .brand-title{color:#fff;}
         <h4 class="serif">UU No. 20 Tahun 2003</h4>
         <div class="desc">Undang-Undang Republik Indonesia tentang Sistem Pendidikan Nasional — payung hukum sistem pendidikan nasional yang menjamin hak masyarakat mendirikan satuan pendidikan swasta berbasis keagamaan.</div>
         <div class="reg-tags"><span class="reg-tag">#Sisdiknas</span><span class="reg-tag">#PendidikanIslam</span><span class="reg-tag">#SekolahSwasta</span></div>
-        <div class="reg-foot"><a href="#">📖 Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
+        <div class="reg-foot"><a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Baca Pasal Krusial</a><span>Pemerintah Republik Indonesia</span></div>
       </div>
     </div>
   </div>
@@ -854,7 +890,7 @@ footer .brand-title{color:#fff;}
       <p class="lead" style="margin-bottom:14px;">Masukkan nomor tiket yang Anda terima via WhatsApp/email setelah pengajuan.</p>
       <div class="ticket-search">
         <input id="ticket-input" placeholder="Contoh: LBHDP-2026-001">
-        <button onclick="lacakTiket()">🔍 Lacak Status</button>
+        <button onclick="lacakTiket()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg> Lacak Status</button>
       </div>
       <p style="font-size:12px;color:var(--sub);margin-top:8px;">Coba demo: LBHDP-2026-001 atau LBHDP-2026-002</p>
 
@@ -862,6 +898,16 @@ footer .brand-title{color:#fff;}
     </div>
   </div>
 </section>
+<div class="ebook-banner">
+  <img src="ebook/book-poster.jpg" alt="Cover ebook Jangan Kelola Yayasan Sebelum Baca Buku Ini">
+  <div class="ebook-banner-text">
+    <div class="tag">BUKU BARU DARI DIREKTUR LBH D&P</div>
+    <h5 class="serif">Jangan Kelola Yayasan Sebelum Baca Buku Ini</h5>
+    <p>Panduan praktis agar yayasan legal & pengurus tidak terjerat hukum.</p>
+  </div>
+  <a href="/ebook/" target="_blank" rel="noopener">Lihat Ebook →</a>
+</div>
+
 <section class="block" id="kebijakan" style="background:#fff;padding-top:0;">
   <div class="wrap">
     <div class="legal-card">
@@ -894,7 +940,9 @@ footer .brand-title{color:#fff;}
       </div>
       <div class="footer-col">
         <h6>Kantor & Hotline</h6>
-        <a>Sisfo Office, Jl. Jatinegara Barat No. 5-6</a><a>WhatsApp: 0817-6910-840 (24 Jam)</a><a>lbhdp@gmail.com</a>
+        <a class="footer-icon-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> Sisfo Office, Jl. Jatinegara Barat No. 5-6</a>
+        <a class="footer-icon-line"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.1-.472-.15-.671.15-.197.295-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.136-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.672-1.62-.922-2.22-.242-.579-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.148.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.872.118.571-.085 1.767-.722 2.016-1.42.248-.697.248-1.294.173-1.42-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 2.123.636 4.1 1.72 5.753L2 22l4.364-1.692a9.957 9.957 0 0 0 5.64 1.736c5.518 0 10.004-4.486 10.004-10.04C22.008 6.486 17.522 2 12.004 2zm0 18.167a8.11 8.11 0 0 1-4.153-1.14l-.297-.176-2.59 1.004.953-2.59-.193-.3a8.098 8.098 0 0 1-1.258-4.36c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/></svg> WhatsApp: 0817-6910-840 (24 Jam)</a>
+        <a class="footer-icon-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> lbhdp@gmail.com</a>
         <a href="#kontak" class="footer-cta">Ajukan Konsultasi Sekarang</a>
       </div>
     </div>
@@ -902,10 +950,25 @@ footer .brand-title{color:#fff;}
     <div class="footer-bottom">
       © 2026 Lembaga Bantuan Hukum Dakwah & Pendidikan (LBH D&P). Seluruh hak cipta dilindungi undang-undang.<br>
       Dikelola oleh <a href="https://desainindongmas.my.id" target="_blank">desainindongmas</a>
-      &nbsp;·&nbsp;<a href="#" onclick="alert('Portal internal advokat — hubungi admin sistem untuk akses akun.');return false;" style="color:#7b8391;text-decoration:underline;">Login Staf</a>
     </div>
   </div>
 </footer>
+
+<div class="ebook-backdrop" id="ebook-backdrop">
+  <div class="ebook-modal">
+    <button class="ebook-close" onclick="closeEbookPromo()">✕</button>
+    <img src="ebook/book-poster.jpg" alt="Cover ebook Jangan Kelola Yayasan Sebelum Baca Buku Ini">
+    <div class="ebook-modal-body">
+      <span class="ebook-tag">BUKU BARU DARI DIREKTUR LBH D&P</span>
+      <h4 class="serif">Jangan Kelola Yayasan Sebelum Baca Buku Ini</h4>
+      <p>Panduan praktis agar yayasan legal, aset aman, dan pengurus tidak terjerat hukum — ditulis langsung dari pengalaman menangani perkara yayasan.</p>
+      <div class="ebook-cta">
+        <button onclick="closeEbookPromo()">Nanti saja</button>
+        <a href="/ebook/" target="_blank" rel="noopener" onclick="closeEbookPromo()">Lihat Ebook →</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <a href="https://wa.me/6281769108" class="fab-wa"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" style="flex-shrink:0;"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.1-.472-.15-.671.15-.197.295-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.136-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.52-.075-.149-.672-1.62-.922-2.22-.242-.579-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.148.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.693.625.712.227 1.36.195 1.872.118.571-.085 1.767-.722 2.016-1.42.248-.697.248-1.294.173-1.42-.074-.124-.272-.198-.57-.347z"/><path d="M12.004 2C6.486 2 2 6.486 2 12.004c0 2.123.636 4.1 1.72 5.753L2 22l4.364-1.692a9.957 9.957 0 0 0 5.64 1.736c5.518 0 10.004-4.486 10.004-10.04C22.008 6.486 17.522 2 12.004 2zm0 18.167a8.11 8.11 0 0 1-4.153-1.14l-.297-.176-2.59 1.004.953-2.59-.193-.3a8.098 8.098 0 0 1-1.258-4.36c0-4.52 3.68-8.2 8.2-8.2 4.52 0 8.2 3.68 8.2 8.2 0 4.52-3.68 8.2-8.2 8.2z"/></svg></a>
 
@@ -1089,10 +1152,10 @@ async function loadArticlesPublic(){
     <div class="g-card" data-cat="${a.category||''}">
       <div class="g-cover" style="background:${a.color||'#1c2434'};"><span>${a.category||''}</span></div>
       <div class="g-body">
-        <div class="g-meta">📅 ${a.event_date ? new Date(a.event_date).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : ''} <span class="g-cat">${a.category||''}</span></div>
+        <div class="g-meta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg> ${a.event_date ? new Date(a.event_date).toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'}) : ''} <span class="g-cat">${a.category||''}</span></div>
         <h4 class="serif">${a.title}</h4>
         <p>${a.excerpt||''}</p>
-        <div class="g-foot"><span>📍 ${a.location||'-'}</span><a href="#kontak">Lihat Detail →</a></div>
+        <div class="g-foot"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg> ${a.location||'-'}</span><a href="#kontak">Lihat Detail →</a></div>
       </div>
     </div>`).join('');
 }
@@ -1146,6 +1209,23 @@ async function loadBoardPublic(){
 
 loadArticlesPublic();
 loadBoardPublic();
+
+/* ===== Popup promo ebook: muncul sekali per hari, setelah 3 detik ===== */
+function closeEbookPromo(){
+  document.getElementById('ebook-backdrop').classList.remove('show');
+  localStorage.setItem('ebookPromoLastShown', new Date().toDateString());
+}
+(function(){
+  const lastShown = localStorage.getItem('ebookPromoLastShown');
+  const today = new Date().toDateString();
+  if(lastShown === today) return; // sudah dilihat/ditutup hari ini
+  setTimeout(()=>{
+    document.getElementById('ebook-backdrop').classList.add('show');
+  }, 3000);
+})();
+document.getElementById('ebook-backdrop').addEventListener('click', function(e){
+  if(e.target === this) closeEbookPromo();
+});
 
 document.getElementById('g-chips').addEventListener('click',(e)=>{
   if(!e.target.classList.contains('chip')) return;
